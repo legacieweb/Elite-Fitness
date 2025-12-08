@@ -190,6 +190,16 @@ app.get('/api/bookings', async (req, res) => {
   }
 });
 
+// Serve hero video HTML
+app.get('/api/hero-video', (req, res) => {
+  const videoHtml = `
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="3196220-uhd_3840_2160_25fps.mp4" type="video/mp4">
+    </video>
+  `;
+  res.send(videoHtml);
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Elite Fitness server running on port ${PORT}`);
