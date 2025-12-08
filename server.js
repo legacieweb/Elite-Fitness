@@ -3,6 +3,8 @@ const nodemailer = require('nodemailer');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,6 +13,22 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve index.html dynamically with video
+app.get('/', (req, res) => {
+  const indexPath = path.join(__dirname, 'index.html');
+  fs.readFile(indexPath, 'utf8', (err, data) => {
+    if (err) {
+      res.status(500).send('Error loading page');
+      return;
+    }
+    const videoHtml = `<video autoplay muted loop playsinline preload="auto" class="hero-video">
+      <source src="3196220-uhd_3840_2160_25fps.mp4" type="video/mp4">
+    </video>`;
+    const modifiedHtml = data.replace('<div id="hero-video-container"></div>', videoHtml);
+    res.send(modifiedHtml);
+  });
+});
 
 // Serve static files from the root directory
 app.use(express.static('.'));

@@ -102,13 +102,3 @@ document.querySelectorAll('.service-card').forEach(card => {
         this.querySelector('img').style.transform = 'scale(1)';
     });
 });
-
-// Load hero video from server
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('https://elite-fitness-6av3.onrender.com/api/hero-video')
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('hero-video-container').innerHTML = html;
-        })
-        .catch(error => console.error('Error loading hero video:', error));
-});
