@@ -1,0 +1,33 @@
+[
+  {
+    "id": "1765139706774",
+    "timestamp": "2025-12-07T20:35:06.774Z",
+    "type": "personalTraining",
+    "name": "Test User",
+    "email": "test@example.com",
+    "program": "strength",
+    "sessions": 2,
+    "date": "2025-12-15"
+  },
+  {
+    "id": "1765139743951",
+    "timestamp": "2025-12-07T20:35:43.951Z",
+    "type": "groupClass",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "class": "hiit",
+    "date": "2025-12-20",
+    "phone": "555-1234",
+    "experience": "intermediate"
+  },
+  {
+    "id": "1765139764814",
+    "timestamp": "2025-12-07T20:36:04.814Z",
+    "type": "nutritionCoaching",
+    "name": "Jane Smith",
+    "email": "jane@example.com",
+    "program": "weightloss",
+    "sessions": 3,
+    "date": "2025-12-18"
+  }
+]

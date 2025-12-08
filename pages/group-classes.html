@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Classes - Elite Fitness</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/group-classes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Elite Fitness</div>
+            <ul>
+                <li><a href="../index.html#home">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="../index.html#gallery">Gallery</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="gc-hero">
+        <div class="gc-hero-overlay"></div>
+        <img src="https://images.pexels.com/photos/3379935/pexels-photo-3379935.jpeg" alt="Group Classes Hero" class="gc-hero-bg">
+        <div class="gc-hero-content">
+            <h1>Join Our Dynamic Group Classes</h1>
+            <p>Train with motivation, energy, and community support</p>
+            <button class="cta-btn">Explore Classes</button>
+        </div>
+    </section>
+
+    <section class="gc-intro">
+        <div class="container">
+            <div class="intro-wrapper">
+                <div class="intro-content">
+                    <h2>Group Fitness Experience</h2>
+                    <p>Experience the power of working out alongside motivated individuals in our diverse group classes. Our certified instructors create an energetic atmosphere that pushes you to achieve your goals while building community connections that keep you accountable and inspired.</p>
+                    <div class="intro-features">
+                        <div class="feature-item">
+                            <div class="feature-number">01</div>
+                            <h4>Expert Instruction</h4>
+                            <p>Certified trainers leading every session</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">02</div>
+                            <h4>Diverse Classes</h4>
+                            <p>Six unique fitness styles to choose from</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">03</div>
+                            <h4>Community Focus</h4>
+                            <p>Build connections and accountability</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="intro-image">
+                    <img src="https://images.pexels.com/photos/3807512/pexels-photo-3807512.jpeg" alt="Group Class">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="class-types">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Class Programs</h2>
+                <p>Find the perfect class for your fitness journey</p>
+            </div>
+            <div class="classes-grid">
+                <div class="class-card" data-class="hiit">
+                    <div class="class-image">
+                        <img src="https://images.pexels.com/photos/3621458/pexels-photo-3621458.jpeg" alt="HIIT Training">
+                        <div class="class-overlay">
+                            <span>HIIT Training</span>
+                        </div>
+                    </div>
+                    <div class="class-info">
+                        <h3>HIIT Classes</h3>
+                        <p class="class-desc">High-intensity interval training for maximum calorie burn and cardiovascular fitness</p>
+                        <div class="class-details">
+                            <span class="duration">45 minutes</span>
+                            <span class="price">$20/class</span>
+                        </div>
+                        <button class="view-btn" onclick="viewClass('hiit')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="class-card" data-class="yoga">
+                    <div class="class-image">
+                        <img src="https://images.pexels.com/photos/3820681/pexels-photo-3820681.jpeg" alt="Yoga">
+                        <div class="class-overlay">
+                            <span>Yoga</span>
+                        </div>
+                    </div>
+                    <div class="class-info">
+                        <h3>Yoga Classes</h3>
+                        <p class="class-desc">Flexibility, balance, and mindfulness practice for all experience levels</p>
+                        <div class="class-details">
+                            <span class="duration">60 minutes</span>
+                            <span class="price">$20/class</span>
+                        </div>
+                        <button class="view-btn" onclick="viewClass('yoga')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="class-card" data-class="pilates">
+                    <div class="class-image">
+                        <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg" alt="Pilates">
+                        <div class="class-overlay">
+                            <span>Pilates</span>
+                        </div>
+                    </div>
+                    <div class="class-info">
+                        <h3>Pilates Classes</h3>
+                        <p class="class-desc">Core strengthening and body conditioning with precision movements</p>
+                        <div class="class-details">
+                            <span class="duration">55 minutes</span>
+                            <span class="price">$20/class</span>
+                        </div>
+                        <button class="view-btn" onclick="viewClass('pilates')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="class-card" data-class="strength">
+                    <div class="class-image">
+                        <img src="https://images.pexels.com/photos/3837344/pexels-photo-3837344.jpeg" alt="Strength Training">
+                        <div class="class-overlay">
+                            <span>Strength Training</span>
+                        </div>
+                    </div>
+                    <div class="class-info">
+                        <h3>Strength Training</h3>
+                        <p class="class-desc">Build muscle and power with group motivation and expert guidance</p>
+                        <div class="class-details">
+                            <span class="duration">60 minutes</span>
+                            <span class="price">$20/class</span>
+                        </div>
+                        <button class="view-btn" onclick="viewClass('strength')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="class-card" data-class="spinning">
+                    <div class="class-image">
+                        <img src="https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg" alt="Spinning">
+                        <div class="class-overlay">
+                            <span>Spinning</span>
+                        </div>
+                    </div>
+                    <div class="class-info">
+                        <h3>Spinning Classes</h3>
+                        <p class="class-desc">Indoor cycling with high-energy beats and motivational atmosphere</p>
+                        <div class="class-details">
+                            <span class="duration">45 minutes</span>
+                            <span class="price">$20/class</span>
+                        </div>
+                        <button class="view-btn" onclick="viewClass('spinning')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="class-card" data-class="zumba">
+                    <div class="class-image">
+                        <img src="https://images.pexels.com/photos/3640519/pexels-photo-3640519.jpeg" alt="Zumba">
+                        <div class="class-overlay">
+                            <span>Zumba Dance</span>
+                        </div>
+                    </div>
+                    <div class="class-info">
+                        <h3>Zumba Dance</h3>
+                        <p class="class-desc">Fun, rhythmic dance workout that burns calories while having fun</p>
+                        <div class="class-details">
+                            <span class="duration">50 minutes</span>
+                            <span class="price">$20/class</span>
+                        </div>
+                        <button class="view-btn" onclick="viewClass('zumba')">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()"></button>
+            <div class="modal-body">
+                <div class="modal-image" id="modalImage"></div>
+                <div class="modal-text">
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalDescription"></p>
+                    <h4>Class Schedule & Details:</h4>
+                    <ul id="modalDetails"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="community-stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number">2,500+</div>
+                    <div class="stat-label">Active Members</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Classes Per Week</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Expert Instructors</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Member Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="instructors">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meet Our Instructors</h2>
+                <p>Passionate professionals leading your fitness journey</p>
+            </div>
+            <div class="instructors-grid">
+                <div class="instructor-card">
+                    <div class="instructor-image">
+                        <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg" alt="Instructor">
+                    </div>
+                    <h3>Sarah Mitchell</h3>
+                    <p class="specialty">HIIT & Cardio Specialist</p>
+                    <p class="bio">10+ years of fitness coaching experience with a passion for high-energy workouts</p>
+                </div>
+                <div class="instructor-card">
+                    <div class="instructor-image">
+                        <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg" alt="Instructor">
+                    </div>
+                    <h3>Marcus Thompson</h3>
+                    <p class="specialty">Strength & Conditioning Coach</p>
+                    <p class="bio">Certified personal trainer focusing on functional strength and muscle development</p>
+                </div>
+                <div class="instructor-card">
+                    <div class="instructor-image">
+                        <img src="https://images.pexels.com/photos/1181472/pexels-photo-1181472.jpeg" alt="Instructor">
+                    </div>
+                    <h3>Emma Rodriguez</h3>
+                    <p class="specialty">Yoga & Flexibility Coach</p>
+                    <p class="bio">Holistic wellness expert dedicated to mind-body connection and sustainable health</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Member Success Stories</h2>
+                <p>Hear from our community</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg" alt="Member">
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Jessica Adams</h4>
+                            <div class="star-rating">
+                                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The group HIIT classes have transformed my fitness journey. The energy from other members keeps me motivated, and the results speak for themselves!"</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg" alt="Member">
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>David Chen</h4>
+                            <div class="star-rating">
+                                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"I've tried many gyms, but the community here is unmatched. The yoga classes help me find balance while the strength classes build the power I needed."</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="https://images.pexels.com/photos/1181472/pexels-photo-1181472.jpeg" alt="Member">
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Amanda Price</h4>
+                            <div class="star-rating">
+                                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The spinning classes are my absolute favorite! The music, the energy, the instructors—everything is perfectly designed to keep you engaged."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Flexible Pricing Plans</h2>
+                <p>Choose the option that works best for you</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Drop-In</h3>
+                    <div class="price">$20</div>
+                    <p class="price-label">Per Class</p>
+                    <ul class="features-list">
+                        <li>Single class access</li>
+                        <li>All class types available</li>
+                        <li>No commitment</li>
+                        <li>Valid for 30 days</li>
+                    </ul>
+                    <button class="pricing-btn">Book Now</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <h3>Unlimited Monthly</h3>
+                    <div class="price">$99</div>
+                    <p class="price-label">Per Month</p>
+                    <ul class="features-list">
+                        <li>Unlimited class access</li>
+                        <li>All class types included</li>
+                        <li>Cancel anytime</li>
+                        <li>Priority booking</li>
+                    </ul>
+                    <button class="pricing-btn">Get Started</button>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Annual Commitment</h3>
+                    <div class="price">$999</div>
+                    <p class="price-label">Per Year</p>
+                    <ul class="features-list">
+                        <li>Unlimited access</li>
+                        <li>2 months free</li>
+                        <li>Personal training discount</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <button class="pricing-btn">Save Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Reserve Your Spot</h2>
+                <p>Sign up for your first class today</p>
+            </div>
+            <div class="booking-form-wrapper">
+                <form id="booking-form" class="booking-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="class">Select Class</label>
+                            <select id="class" required>
+                                <option value="">Choose a class</option>
+                                <option value="hiit">HIIT Training</option>
+                                <option value="yoga">Yoga</option>
+                                <option value="pilates">Pilates</option>
+                                <option value="strength">Strength Training</option>
+                                <option value="spinning">Spinning</option>
+                                <option value="zumba">Zumba Dance</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Preferred Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">Experience Level</label>
+                            <select id="experience" required>
+                                <option value="">Select level</option>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">Reserve Class</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Elite Fitness</h4>
+                    <p>Transforming lives through premium fitness programs, expert coaching, and community support since 2013.</p>
+                    <div class="footer-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-text">5.0 (500+ reviews)</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="personal-training.html">Personal Training</a></li>
+                        <li><a href="group-classes.html">Group Classes</a></li>
+                        <li><a href="nutrition-coaching.html">Nutrition Coaching</a></li>
+                        <li><a href="services.html">All Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="../index.html#gallery">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+                        <li><a href="mailto:hello@elitefitness.com">hello@elitefitness.com</a></li>
+                        <li><a href="#">123 Fitness Ave, NYC</a></li>
+                        <li><a href="#">Mon-Fri 6am-10pm</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links-footer">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Elite Fitness. All rights reserved.</p>
+                <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/group-classes.js"></script>
+</body>
+</html>

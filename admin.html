@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Fitness - Admin Control Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --shadow-light: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.2);
+            --border-radius: 20px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.3) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+
+        .admin-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px;
+            position: relative;
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .admin-header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-header {
+                margin-top: 80px; /* Space for the back button */
+                margin-bottom: 30px;
+            }
+        }
+
+        .admin-header h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-shadow: 0 0 40px rgba(102, 126, 234, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.2); }
+        }
+
+        .admin-header p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 40px 30px;
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-heavy);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+        }
+
+        .stat-total .stat-icon { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .stat-personal .stat-icon { background: var(--secondary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .stat-group .stat-icon { background: var(--success-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .stat-nutrition .stat-icon { background: var(--warning-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        .stat-content {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            display: block;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .stat-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: #4ade80;
+            font-weight: 500;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .bookings-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+
+        .section-header {
+            padding: 30px 40px;
+            background: var(--primary-gradient);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .section-header:hover::before {
+            opacity: 1;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-header h2::before {
+            content: '📊';
+            font-size: 1.5rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: var(--secondary-gradient);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.3);
+        }
+
+        .search-filter-bar {
+            padding: 30px 40px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 25px;
+            align-items: stretch;
+            flex-wrap: wrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-filter-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            min-width: 320px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            z-index: 2;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            font-size: 1rem;
+            backdrop-filter: blur(15px);
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--success-gradient);
+            box-shadow: 0 0 25px rgba(79, 172, 254, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.02);
+        }
+
+        .search-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 30px;
+            background: var(--success-gradient);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 0;
+        }
+
+        .search-container:focus-within .search-glow {
+            opacity: 0.1;
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s;
+            opacity: 0;
+            z-index: 2;
+        }
+
+        .search-container:focus-within .clear-search,
+        .search-input:not(:placeholder-shown) + .clear-search {
+            opacity: 1;
+        }
+
+        .clear-search:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 180px;
+        }
+
+        .filter-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .custom-select-wrapper {
+            position: relative;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 12px 40px 12px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            font-size: 0.95rem;
+            backdrop-filter: blur(15px);
+            cursor: pointer;
+            transition: var(--transition);
+            appearance: none;
+        }
+
+        .filter-select:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--success-gradient);
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.2);
+        }
+
+        .filter-select option {
+            background: #1a1a1a;
+            color: white;
+            padding: 10px;
+        }
+
+        .select-arrow {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            pointer-events: none;
+            transition: transform 0.3s;
+        }
+
+        .custom-select-wrapper:focus-within .select-arrow {
+            transform: translateY(-50%) rotate(180deg);
+            color: var(--text-primary);
+        }
+
+        .filter-stats {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .stat-mini {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-mini-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stat-mini-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .bookings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .bookings-table thead {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .bookings-table th {
+            padding: 25px 20px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bookings-table td {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: middle;
+            transition: background-color 0.3s ease;
+        }
+
+        .bookings-table tbody tr {
+            transition: var(--transition);
+        }
+
+        .bookings-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: scale(1.01);
+        }
+
+        .booking-type {
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .type-personal {
+            background: var(--secondary-gradient);
+            color: white;
+        }
+
+        .type-group {
+            background: var(--success-gradient);
+            color: white;
+        }
+
+        .type-nutrition {
+            background: var(--warning-gradient);
+            color: white;
+        }
+
+        .status-confirmed {
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .customer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .customer-name {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .customer-email {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .booking-details {
+            max-width: 250px;
+        }
+
+        .detail-item {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .detail-item::before {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 80px 40px;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .loading::before {
+            content: '⟳';
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 20px;
+            animation: spin 1s linear infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+        }
+
+        .error {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 25px 30px;
+            border-radius: var(--border-radius);
+            margin: 30px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-light);
+        }
+
+        .error::before {
+            content: '⚠';
+            font-size: 2rem;
+            opacity: 0.9;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 100px 40px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state::before {
+            content: '📊';
+            font-size: 5rem;
+            display: block;
+            margin-bottom: 25px;
+            opacity: 0.6;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .empty-state h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 15px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-heavy);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .back-btn {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                right: 20px;
+                width: auto;
+                text-align: center;
+                z-index: 1000;
+            }
+        }
+
+        .notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: var(--success-gradient);
+            color: white;
+            padding: 20px 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-heavy);
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+            max-width: 350px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .notification.success {
+            background: var(--success-gradient);
+        }
+
+        .notification.error {
+            background: var(--secondary-gradient);
+        }
+
+        @media (max-width: 1024px) {
+            .admin-container {
+                padding: 20px;
+            }
+
+            .admin-header h1 {
+                font-size: 3rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+            }
+
+            .section-header {
+                padding: 25px 20px;
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .header-actions {
+                justify-content: center;
+            }
+
+            .search-filter-bar {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-input {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 15px;
+            }
+
+            .admin-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .admin-header p {
+                font-size: 1.1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .stat-card {
+                padding: 25px 20px;
+            }
+
+            .stat-number {
+                font-size: 3rem;
+            }
+
+            .bookings-table {
+                font-size: 0.8rem;
+            }
+
+            .bookings-table th,
+            .bookings-table td {
+                padding: 12px 8px;
+            }
+
+            .back-btn {
+                top: 20px;
+                left: 20px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .notification {
+                top: 20px;
+                right: 20px;
+                left: 20px;
+                max-width: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .stats-grid > * {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .stats-grid > *:nth-child(1) { animation-delay: 0.1s; }
+        .stats-grid > *:nth-child(2) { animation-delay: 0.2s; }
+        .stats-grid > *:nth-child(3) { animation-delay: 0.3s; }
+        .stats-grid > *:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <a href="http://localhost:3000/" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        Back to Elite Fitness
+    </a>
+
+    <div id="notification" class="notification"></div>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>Elite Control Center</h1>
+            <p>Advanced analytics, real-time monitoring, and intelligent booking management</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card stat-total">
+                <i class="fas fa-rocket stat-icon"></i>
+                <div class="stat-content">
+                    <span class="stat-number" id="total-bookings">0</span>
+                    <span class="stat-label">Total Bookings</span>
+                    <div class="stat-trend">
+                        <i class="fas fa-arrow-up"></i>
+                        Active
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card stat-personal">
+                <i class="fas fa-dumbbell stat-icon"></i>
+                <div class="stat-content">
+                    <span class="stat-number" id="personal-training">0</span>
+                    <span class="stat-label">Personal Training</span>
+                    <div class="stat-trend">
+                        <i class="fas fa-fire"></i>
+                        Popular
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card stat-group">
+                <i class="fas fa-users stat-icon"></i>
+                <div class="stat-content">
+                    <span class="stat-number" id="group-classes">0</span>
+                    <span class="stat-label">Group Classes</span>
+                    <div class="stat-trend">
+                        <i class="fas fa-users"></i>
+                        Community
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card stat-nutrition">
+                <i class="fas fa-apple-alt stat-icon"></i>
+                <div class="stat-content">
+                    <span class="stat-number" id="nutrition-coaching">0</span>
+                    <span class="stat-label">Nutrition Coaching</span>
+                    <div class="stat-trend">
+                        <i class="fas fa-leaf"></i>
+                        Wellness
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="bookings-section">
+                <div class="section-header">
+                    <h2>Live Booking Stream</h2>
+                    <div class="header-actions">
+                        <button class="btn" onclick="exportBookings()">
+                            <i class="fas fa-file-csv"></i>
+                            Export CSV
+                        </button>
+                        <button class="btn btn-primary" onclick="loadBookings()">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh Data
+                        </button>
+                    </div>
+                </div>
+
+                <div class="search-filter-bar">
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search quantum signatures...">
+                        <button class="clear-search" id="clearSearch" title="Clear search">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="search-glow"></div>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-item">
+                            <label class="filter-label">
+                                <i class="fas fa-cube"></i>
+                                Service Matrix
+                            </label>
+                            <div class="custom-select-wrapper">
+                                <select class="filter-select" id="typeFilter">
+                                    <option value="">All Services</option>
+                                    <option value="personalTraining">💪 Personal Training</option>
+                                    <option value="groupClass">👥 Group Classes</option>
+                                    <option value="nutritionCoaching">🥗 Nutrition Coaching</option>
+                                </select>
+                                <div class="select-arrow">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-item">
+                            <label class="filter-label">
+                                <i class="fas fa-atom"></i>
+                                Quantum State
+                            </label>
+                            <div class="custom-select-wrapper">
+                                <select class="filter-select" id="statusFilter">
+                                    <option value="">All States</option>
+                                    <option value="confirmed">✅ Confirmed</option>
+                                    <option value="pending">⏳ Pending</option>
+                                    <option value="cancelled">❌ Cancelled</option>
+                                </select>
+                                <div class="select-arrow">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-item">
+                            <label class="filter-label">
+                                <i class="fas fa-calendar-alt"></i>
+                                Time Frame
+                            </label>
+                            <div class="custom-select-wrapper">
+                                <select class="filter-select" id="dateFilter">
+                                    <option value="">All Time</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                    <option value="quarter">This Quarter</option>
+                                </select>
+                                <div class="select-arrow">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-stats">
+                        <div class="stat-mini">
+                            <span class="stat-mini-label">Filtered:</span>
+                            <span class="stat-mini-value" id="filteredCount">0</span>
+                        </div>
+                        <div class="stat-mini">
+                            <span class="stat-mini-label">Total:</span>
+                            <span class="stat-mini-value" id="totalCount">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="error-message" class="error" style="display: none;"></div>
+
+                <div id="loading" class="loading">
+                    <div>Initializing Neural Networks...</div>
+                    <div style="font-size: 0.9rem; opacity: 0.7; margin-top: 10px;">Analyzing booking patterns</div>
+                </div>
+
+                <div id="empty-state" class="empty-state" style="display: none;">
+                    <h3>Quantum State: Empty</h3>
+                    <p>The booking matrix awaits its first entry. New reservations will materialize here instantly.</p>
+                </div>
+
+                <table class="bookings-table" id="bookings-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-fingerprint"></i> Booking ID</th>
+                            <th><i class="fas fa-cube"></i> Service Type</th>
+                            <th><i class="fas fa-user-astronaut"></i> Client Profile</th>
+                            <th><i class="fas fa-microchip"></i> Service Matrix</th>
+                            <th><i class="fas fa-calendar-alt"></i> Quantum Date</th>
+                            <th><i class="fas fa-atom"></i> Status Core</th>
+                            <th><i class="fas fa-clock"></i> Temporal Stamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookings-body">
+                        <!-- Neural network will populate quantum bookings here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Neural Network Authentication System
+        const NEURAL_PASSWORD = 'admin123'; // Quantum encryption key
+
+        function checkAuth() {
+            const quantumState = sessionStorage.getItem('neuralAuthenticated');
+            if (!quantumState) {
+                const accessCode = prompt('🧠 Enter Neural Access Code:');
+                if (accessCode === NEURAL_PASSWORD) {
+                    sessionStorage.setItem('neuralAuthenticated', 'true');
+                    showNotification('Neural link established', 'success');
+                    return true;
+                } else {
+                    showNotification('Access denied - Invalid quantum signature', 'error');
+                    setTimeout(() => {
+                        window.location.href = 'http://localhost:3000/';
+                    }, 2000);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Global booking data
+        let allBookings = [];
+        let filteredBookings = [];
+
+        async function loadBookings() {
+            const loading = document.getElementById('loading');
+            const table = document.getElementById('bookings-table');
+            const emptyState = document.getElementById('empty-state');
+            const errorDiv = document.getElementById('error-message');
+
+            loading.style.display = 'block';
+            table.style.display = 'none';
+            emptyState.style.display = 'none';
+            errorDiv.style.display = 'none';
+
+            try {
+                const response = await fetch('http://localhost:3000/api/bookings');
+                if (!response.ok) {
+                    throw new Error('Neural network connection failed');
+                }
+
+                const bookings = await response.json();
+                allBookings = bookings;
+                filteredBookings = [...bookings];
+
+                // Update quantum stats
+                updateStats(bookings);
+
+                // Initialize filtered bookings and counts
+                filteredBookings = [...bookings];
+                document.getElementById('filteredCount').textContent = bookings.length;
+                document.getElementById('totalCount').textContent = bookings.length;
+
+                // Render bookings
+                renderBookings(filteredBookings);
+
+                loading.style.display = 'none';
+                if (filteredBookings.length === 0) {
+                    emptyState.style.display = 'block';
+                } else {
+                    table.style.display = 'table';
+                }
+
+                showNotification(`Loaded ${bookings.length} quantum bookings`, 'success');
+
+            } catch (error) {
+                console.error('Neural network error:', error);
+                loading.style.display = 'none';
+                errorDiv.textContent = 'Neural network disruption detected. Reconnecting to matrix...';
+                errorDiv.style.display = 'block';
+                showNotification('Connection lost - Reinitializing neural links', 'error');
+            }
+        }
+
+        function updateStats(bookings) {
+            const total = bookings.length;
+            const personal = bookings.filter(b => b.type === 'personalTraining').length;
+            const group = bookings.filter(b => b.type === 'groupClass').length;
+            const nutrition = bookings.filter(b => b.type === 'nutritionCoaching').length;
+
+            // Quantum number animation
+            animateQuantumNumber('total-bookings', total);
+            animateQuantumNumber('personal-training', personal);
+            animateQuantumNumber('group-classes', group);
+            animateQuantumNumber('nutrition-coaching', nutrition);
+        }
+
+        function animateQuantumNumber(elementId, target) {
+            const element = document.getElementById(elementId);
+            const current = parseInt(element.textContent) || 0;
+            const steps = 20;
+            const increment = (target - current) / steps;
+            let step = 0;
+
+            const timer = setInterval(() => {
+                step++;
+                const value = Math.round(current + (increment * step));
+                element.textContent = value;
+
+                if (step >= steps) {
+                    clearInterval(timer);
+                    element.textContent = target;
+                }
+            }, 50);
+        }
+
+        function renderBookings(bookings) {
+            const tbody = document.getElementById('bookings-body');
+            tbody.innerHTML = '';
+
+            // Sort by quantum timestamp (newest first)
+            bookings.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            bookings.forEach((booking, index) => {
+                const row = createQuantumBookingRow(booking, index);
+                tbody.appendChild(row);
+            });
+        }
+
+        function createQuantumBookingRow(booking, index) {
+            const row = document.createElement('tr');
+            row.style.animationDelay = `${index * 0.05}s`;
+            row.className = 'fade-in-up';
+
+            // Quantum type classification
+            let typeClass = 'booking-type ';
+            let typeText = '';
+            let typeIcon = '';
+            let typeEmoji = '';
+            switch (booking.type) {
+                case 'personalTraining':
+                    typeClass += 'type-personal';
+                    typeText = 'Personal Training';
+                    typeIcon = 'fas fa-dumbbell';
+                    typeEmoji = '💪';
+                    break;
+                case 'groupClass':
+                    typeClass += 'type-group';
+                    typeText = 'Group Class';
+                    typeIcon = 'fas fa-users';
+                    typeEmoji = '👥';
+                    break;
+                case 'nutritionCoaching':
+                    typeClass += 'type-nutrition';
+                    typeText = 'Nutrition Coaching';
+                    typeIcon = 'fas fa-apple-alt';
+                    typeEmoji = '🥗';
+                    break;
+                default:
+                    typeText = booking.type;
+            }
+
+            // Neural client profile
+            const clientProfile = `
+                <div class="customer-info">
+                    <div class="customer-name">${booking.name}</div>
+                    <div class="customer-email">${booking.email}</div>
+                </div>
+            `;
+
+            // Quantum service matrix
+            let serviceMatrix = '<div class="booking-details">';
+            if (booking.program) serviceMatrix += `<div class="detail-item"><i class="fas fa-clipboard-list"></i> ${booking.program}</div>`;
+            if (booking.class) serviceMatrix += `<div class="detail-item"><i class="fas fa-bullseye"></i> ${booking.class}</div>`;
+            if (booking.sessions) serviceMatrix += `<div class="detail-item"><i class="fas fa-clock"></i> ${booking.sessions} sessions</div>`;
+            if (booking.experience) serviceMatrix += `<div class="detail-item"><i class="fas fa-star"></i> ${booking.experience} level</div>`;
+            if (booking.phone) serviceMatrix += `<div class="detail-item"><i class="fas fa-phone"></i> ${booking.phone}</div>`;
+            serviceMatrix += '</div>';
+
+            // Temporal coordinates
+            const quantumDate = new Date(booking.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                weekday: 'short'
+            });
+
+            const temporalStamp = new Date(booking.timestamp).toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            row.innerHTML = `
+                <td>
+                    <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px; color: #00f2fe;">
+                        ${booking.id.slice(-8).toUpperCase()}
+                    </code>
+                </td>
+                <td>
+                    <span class="${typeClass}">
+                        <i class="${typeIcon}"></i> ${typeText} ${typeEmoji}
+                    </span>
+                </td>
+                <td>${clientProfile}</td>
+                <td>${serviceMatrix}</td>
+                <td>
+                    <strong style="color: #4ade80; font-size: 1rem;">${quantumDate}</strong>
+                </td>
+                <td>
+                    <span class="status-confirmed">
+                        <i class="fas fa-check-circle"></i> Confirmed
+                    </span>
+                </td>
+                <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: rgba(255,255,255,0.8);">
+                    ${temporalStamp}
+                </td>
+            `;
+
+            return row;
+        }
+
+        function exportBookings() {
+            if (filteredBookings.length === 0) {
+                showNotification('No quantum data to export', 'error');
+                return;
+            }
+
+            // Generate quantum CSV
+            const headers = ['Quantum_ID', 'Service_Type', 'Client_Name', 'Neural_Link', 'Quantum_Date', 'Status_Core', 'Temporal_Stamp', 'Service_Matrix'];
+            const csvContent = [
+                headers.join(','),
+                ...filteredBookings.map(booking => [
+                    booking.id,
+                    booking.type,
+                    `"${booking.name}"`,
+                    booking.email,
+                    booking.date,
+                    'Confirmed',
+                    new Date(booking.timestamp).toISOString(),
+                    `"${[booking.program, booking.class, booking.sessions && `${booking.sessions} sessions`, booking.experience && `${booking.experience} level`].filter(Boolean).join(' | ')}"`
+                ].join(','))
+            ].join('\n');
+
+            // Quantum download
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `elite-fitness-quantum-data-${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showNotification('Quantum data exported successfully', 'success');
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        // Neural search and filter system
+        function setupNeuralFilters() {
+            const searchInput = document.getElementById('searchInput');
+            const typeFilter = document.getElementById('typeFilter');
+            const statusFilter = document.getElementById('statusFilter');
+            const dateFilter = document.getElementById('dateFilter');
+            const filteredCountEl = document.getElementById('filteredCount');
+            const totalCountEl = document.getElementById('totalCount');
+
+            function applyFilters() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const typeValue = typeFilter.value;
+                const statusValue = statusFilter.value;
+                const dateValue = dateFilter.value;
+
+                filteredBookings = allBookings.filter(booking => {
+                    const matchesSearch = !searchTerm ||
+                        booking.name.toLowerCase().includes(searchTerm) ||
+                        booking.email.toLowerCase().includes(searchTerm) ||
+                        booking.id.toLowerCase().includes(searchTerm);
+
+                    const matchesType = !typeValue || booking.type === typeValue;
+                    const matchesStatus = !statusValue || (statusValue === 'confirmed'); // All bookings are confirmed for now
+
+                    const matchesDate = !dateValue || checkDateFilter(booking.timestamp, dateValue);
+
+                    return matchesSearch && matchesType && matchesStatus && matchesDate;
+                });
+
+                // Update counts
+                filteredCountEl.textContent = filteredBookings.length;
+                totalCountEl.textContent = allBookings.length;
+
+                renderBookings(filteredBookings);
+
+                const table = document.getElementById('bookings-table');
+                const emptyState = document.getElementById('empty-state');
+
+                if (filteredBookings.length === 0 && allBookings.length > 0) {
+                    table.style.display = 'none';
+                    emptyState.innerHTML = `
+                        <h3>🧠 Neural Filter Active</h3>
+                        <p>No quantum signatures match your search parameters. Try adjusting the neural filters.</p>
+                        <div style="margin-top: 15px;">
+                            <button onclick="clearAllFilters()" class="btn btn-primary" style="font-size: 0.9rem; padding: 8px 16px;">
+                                <i class="fas fa-undo"></i> Clear Filters
+                            </button>
+                        </div>
+                    `;
+                    emptyState.style.display = 'block';
+                } else if (filteredBookings.length === 0) {
+                    table.style.display = 'none';
+                    emptyState.innerHTML = `
+                        <h3>⚛️ Quantum State: Empty</h3>
+                        <p>The booking matrix awaits its first entry. New reservations will materialize here instantly.</p>
+                    `;
+                    emptyState.style.display = 'block';
+                } else {
+                    table.style.display = 'table';
+                    emptyState.style.display = 'none';
+                }
+            }
+
+            function checkDateFilter(timestamp, filter) {
+                const bookingDate = new Date(timestamp);
+                const now = new Date();
+
+                switch (filter) {
+                    case 'today':
+                        return bookingDate.toDateString() === now.toDateString();
+                    case 'week':
+                        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                        return bookingDate >= weekAgo;
+                    case 'month':
+                        const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+                        return bookingDate >= monthAgo;
+                    case 'quarter':
+                        const quarterAgo = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
+                        return bookingDate >= quarterAgo;
+                    default:
+                        return true;
+                }
+            }
+
+            function clearAllFilters() {
+                searchInput.value = '';
+                typeFilter.value = '';
+                statusFilter.value = '';
+                dateFilter.value = '';
+                applyFilters();
+                showNotification('Neural filters cleared', 'success');
+            }
+
+            // Make clearAllFilters globally available
+            window.clearAllFilters = clearAllFilters;
+
+            // Clear search button
+            const clearSearchBtn = document.getElementById('clearSearch');
+            clearSearchBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                applyFilters();
+                searchInput.focus();
+            });
+
+            searchInput.addEventListener('input', applyFilters);
+            typeFilter.addEventListener('change', applyFilters);
+            statusFilter.addEventListener('change', applyFilters);
+            dateFilter.addEventListener('change', applyFilters);
+
+            // Initialize counts
+            filteredCountEl.textContent = '0';
+            totalCountEl.textContent = '0';
+        }
+
+        // Initialize neural network
+        document.addEventListener('DOMContentLoaded', () => {
+            if (checkAuth()) {
+                loadBookings();
+                setupNeuralFilters();
+            }
+        });
+
+        // Quantum auto-refresh every 30 seconds
+        setInterval(() => {
+            if (document.visibilityState === 'visible') {
+                loadBookings();
+            }
+        }, 30000);
+
+        // Neural keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key) {
+                    case 'r':
+                        e.preventDefault();
+                        loadBookings();
+                        showNotification('Neural refresh initiated', 'success');
+                        break;
+                    case 'e':
+                        e.preventDefault();
+                        exportBookings();
+                        break;
+                    case 'f':
+                        e.preventDefault();
+                        document.getElementById('searchInput').focus();
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Coaching - Elite Fitness</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/nutrition-coaching.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Elite Fitness</div>
+            <ul>
+                <li><a href="../index.html#home">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="../index.html#gallery">Gallery</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="nc-hero">
+        <div class="nc-hero-overlay"></div>
+        <img src="https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg" alt="Nutrition Coaching" class="nc-hero-bg">
+        <div class="nc-hero-content">
+            <h1>Transform Your Health Through Nutrition</h1>
+            <p>Expert dietary guidance for optimal fitness and wellness results</p>
+            <button class="cta-btn">Book Your Session</button>
+        </div>
+    </section>
+
+    <section class="nc-intro">
+        <div class="container">
+            <div class="intro-wrapper">
+                <div class="intro-image">
+                    <img src="https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg" alt="Nutrition Coaching">
+                </div>
+                <div class="intro-content">
+                    <h2>Personalized Nutrition Plans</h2>
+                    <p>Our certified nutrition coaches work with you to create customized meal plans that complement your fitness goals. Learn healthy eating habits for sustainable, long-term results.</p>
+                    <div class="intro-features">
+                        <div class="feature-item">
+                            <div class="feature-number">01</div>
+                            <h4>Assessment</h4>
+                            <p>Comprehensive dietary evaluation</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">02</div>
+                            <h4>Custom Plans</h4>
+                            <p>Personalized meal strategies</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">03</div>
+                            <h4>Support</h4>
+                            <p>Ongoing coaching and guidance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="coaching-programs">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Coaching Programs</h2>
+                <p>Choose the program that fits your nutritional needs</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card" data-program="weightloss">
+                    <div class="program-image">
+                        <img src="https://images.pexels.com/photos/3807512/pexels-photo-3807512.jpeg" alt="Weight Loss Nutrition">
+                        <div class="program-overlay">
+                            <span>Weight Loss Nutrition</span>
+                        </div>
+                    </div>
+                    <div class="program-info">
+                        <h3>Weight Loss Nutrition</h3>
+                        <p class="program-desc">Strategic meal planning to shed pounds while maintaining muscle</p>
+                        <div class="program-details">
+                            <span class="duration">1-on-1 Sessions</span>
+                            <span class="price">$35/session</span>
+                        </div>
+                        <button class="view-btn" onclick="viewProgram('weightloss')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="program-card" data-program="muscle">
+                    <div class="program-image">
+                        <img src="https://images.pexels.com/photos/3807528/pexels-photo-3807528.jpeg" alt="Muscle Gain Nutrition">
+                        <div class="program-overlay">
+                            <span>Muscle Gain Nutrition</span>
+                        </div>
+                    </div>
+                    <div class="program-info">
+                        <h3>Muscle Gain Nutrition</h3>
+                        <p class="program-desc">Protein-focused plans to maximize muscle growth</p>
+                        <div class="program-details">
+                            <span class="duration">1-on-1 Sessions</span>
+                            <span class="price">$35/session</span>
+                        </div>
+                        <button class="view-btn" onclick="viewProgram('muscle')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="program-card" data-program="athletic">
+                    <div class="program-image">
+                        <img src="https://images.pexels.com/photos/3808215/pexels-photo-3808215.jpeg" alt="Athletic Performance">
+                        <div class="program-overlay">
+                            <span>Athletic Performance</span>
+                        </div>
+                    </div>
+                    <div class="program-info">
+                        <h3>Athletic Performance</h3>
+                        <p class="program-desc">Optimize nutrition for peak athletic performance</p>
+                        <div class="program-details">
+                            <span class="duration">1-on-1 Sessions</span>
+                            <span class="price">$40/session</span>
+                        </div>
+                        <button class="view-btn" onclick="viewProgram('athletic')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="program-card" data-program="wellness">
+                    <div class="program-image">
+                        <img src="https://images.pexels.com/photos/5632400/pexels-photo-5632400.jpeg" alt="Overall Wellness">
+                        <div class="program-overlay">
+                            <span>Overall Wellness</span>
+                        </div>
+                    </div>
+                    <div class="program-info">
+                        <h3>Overall Wellness</h3>
+                        <p class="program-desc">Balanced nutrition for health and energy</p>
+                        <div class="program-details">
+                            <span class="duration">1-on-1 Sessions</span>
+                            <span class="price">$30/session</span>
+                        </div>
+                        <button class="view-btn" onclick="viewProgram('wellness')">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="modalOverlay" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-body">
+                <div class="modal-image"></div>
+                <div class="modal-text">
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalDescription"></p>
+                    <h4>Services Include:</h4>
+                    <ul id="modalServices"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="nutrition-results">
+        <div class="container">
+            <h2>Nutrition Results</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg" alt="Results">
+                    <div class="result-overlay">
+                        <h4>1000+</h4>
+                        <p>Clients Coached</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <img src="https://images.pexels.com/photos/4164840/pexels-photo-4164840.jpeg" alt="Results">
+                    <div class="result-overlay">
+                        <h4>98%</h4>
+                        <p>Satisfaction Rate</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <img src="https://images.pexels.com/photos/3772617/pexels-photo-3772617.jpeg" alt="Results">
+                    <div class="result-overlay">
+                        <h4>30 lbs</h4>
+                        <p>Avg Weight Loss</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <img src="https://images.pexels.com/photos/4326949/pexels-photo-4326949.jpeg" alt="Results">
+                    <div class="result-overlay">
+                        <h4>90%</h4>
+                        <p>Goal Achievement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <h2>Client Transformations</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg" alt="Client">
+                    </div>
+                    <div class="testimonial-content">
+                        <h4>Emily R.</h4>
+                        <p class="testimonial-role">Lost 25 lbs</p>
+                        <p class="testimonial-text">The nutrition guidance changed my entire relationship with food. I've never felt healthier!</p>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.pexels.com/photos/1300402/pexels-photo-1300402.jpeg" alt="Client">
+                    </div>
+                    <div class="testimonial-content">
+                        <h4>David T.</h4>
+                        <p class="testimonial-role">Muscle Gain</p>
+                        <p class="testimonial-text">Personalized meal plans helped me gain quality muscle mass efficiently.</p>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg" alt="Client">
+                    </div>
+                    <div class="testimonial-content">
+                        <h4>Jessica L.</h4>
+                        <p class="testimonial-role">Energy Boost</p>
+                        <p class="testimonial-text">I have so much more energy now. The diet plan is easy to follow and effective!</p>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg" alt="Client">
+                    </div>
+                    <div class="testimonial-content">
+                        <h4>Mark K.</h4>
+                        <p class="testimonial-role">Lifestyle Change</p>
+                        <p class="testimonial-text">This coaching made nutrition simple and sustainable for my lifestyle.</p>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking-section">
+        <div class="container">
+            <h2>Start Your Nutrition Journey</h2>
+            <p class="booking-subtitle">Book your first consultation today</p>
+            <div class="booking-wrapper">
+                <form id="booking-form" class="booking-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="program">Coaching Program</label>
+                            <select id="program" name="program" required>
+                                <option value="">Select a program</option>
+                                <option value="weightloss">Weight Loss Nutrition</option>
+                                <option value="muscle">Muscle Gain Nutrition</option>
+                                <option value="athletic">Athletic Performance</option>
+                                <option value="wellness">Overall Wellness</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sessions">Sessions</label>
+                            <input type="number" id="sessions" name="sessions" min="1" max="12" value="1" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="date">Preferred Date</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="cta-btn book-btn">Book Consultation</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Elite Fitness</h4>
+                    <p>Transforming lives through premium fitness programs, expert coaching, and community support since 2013.</p>
+                    <div class="footer-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-text">5.0 (500+ reviews)</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="personal-training.html">Personal Training</a></li>
+                        <li><a href="group-classes.html">Group Classes</a></li>
+                        <li><a href="nutrition-coaching.html">Nutrition Coaching</a></li>
+                        <li><a href="services.html">All Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="../index.html#gallery">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+                        <li><a href="mailto:hello@elitefitness.com">hello@elitefitness.com</a></li>
+                        <li><a href="#">123 Fitness Ave, NYC</a></li>
+                        <li><a href="#">Mon-Fri 6am-10pm</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links-footer">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Elite Fitness. All rights reserved.</p>
+                <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/nutrition-coaching.js"></script>
+</body>
+</html>

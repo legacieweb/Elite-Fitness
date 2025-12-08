@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Training - Elite Fitness</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/personal-training.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Elite Fitness</div>
+            <ul>
+                <li><a href="../index.html#home">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="../index.html#gallery">Gallery</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="pt-hero">
+        <div class="pt-hero-overlay"></div>
+        <img src="https://images.pexels.com/photos/7974384/pexels-photo-7974384.jpeg" alt="Personal Training Hero" class="pt-hero-bg">
+        <div class="pt-hero-content">
+            <h1>Transform with Personal Training</h1>
+            <p>Expert one-on-one coaching tailored to your unique fitness journey</p>
+            <button class="cta-btn">Start Your Journey</button>
+        </div>
+    </section>
+
+    <section class="pt-intro">
+        <div class="container">
+            <div class="intro-wrapper">
+                <div class="intro-content">
+                    <h2>Personalized Fitness Excellence</h2>
+                    <p>Our certified personal trainers are dedicated to creating custom workout programs that align with your specific goals. Whether you're looking to lose weight, build muscle, or enhance athletic performance, we provide comprehensive guidance every step of the way.</p>
+                    <div class="intro-features">
+                        <div class="feature-item">
+                            <div class="feature-number">01</div>
+                            <h4>Custom Assessment</h4>
+                            <p>Initial evaluation of your fitness level and goals</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">02</div>
+                            <h4>Tailored Programs</h4>
+                            <p>Workouts designed specifically for you</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">03</div>
+                            <h4>Expert Coaching</h4>
+                            <p>Professional guidance with every session</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="intro-image">
+                    <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg" alt="Training Session">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="training-programs">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Training Programs</h2>
+                <p>Choose the perfect program for your fitness goals</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card" data-program="strength">
+                    <div class="program-image">
+                        <img src="https://images.pexels.com/photos/3837344/pexels-photo-3837344.jpeg" alt="Strength Training">
+                        <div class="program-overlay">
+                            <span>Strength Training</span>
+                        </div>
+                    </div>
+                    <div class="program-info">
+                        <h3>Strength Training</h3>
+                        <p class="program-desc">Build powerful muscles and increase your overall strength through resistance training</p>
+                        <div class="program-details">
+                            <span class="duration">60 minutes</span>
+                            <span class="price">$60/session</span>
+                        </div>
+                        <button class="view-btn" onclick="viewProgram('strength')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="program-card" data-program="cardio">
+                    <div class="program-image">
+                        <img src="https://images.pexels.com/photos/3621458/pexels-photo-3621458.jpeg" alt="Cardio Training">
+                        <div class="program-overlay">
+                            <span>Cardio & Conditioning</span>
+                        </div>
+                    </div>
+                    <div class="program-info">
+                        <h3>Cardio & Conditioning</h3>
+                        <p class="program-desc">Boost cardiovascular health and stamina with high-intensity workouts</p>
+                        <div class="program-details">
+                            <span class="duration">45 minutes</span>
+                            <span class="price">$50/session</span>
+                        </div>
+                        <button class="view-btn" onclick="viewProgram('cardio')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="program-card" data-program="flexibility">
+                    <div class="program-image">
+                        <img src="https://images.pexels.com/photos/3820681/pexels-photo-3820681.jpeg" alt="Flexibility Training">
+                        <div class="program-overlay">
+                            <span>Flexibility & Mobility</span>
+                        </div>
+                    </div>
+                    <div class="program-info">
+                        <h3>Flexibility & Mobility</h3>
+                        <p class="program-desc">Enhance flexibility and reduce injury risk through targeted stretching</p>
+                        <div class="program-details">
+                            <span class="duration">50 minutes</span>
+                            <span class="price">$45/session</span>
+                        </div>
+                        <button class="view-btn" onclick="viewProgram('flexibility')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="program-card" data-program="weightloss">
+                    <div class="program-image">
+                        <img src="https://images.pexels.com/photos/4397840/pexels-photo-4397840.jpeg" alt="Weight Loss">
+                        <div class="program-overlay">
+                            <span>Weight Loss Program</span>
+                        </div>
+                    </div>
+                    <div class="program-info">
+                        <h3>Weight Loss Program</h3>
+                        <p class="program-desc">Achieve your weight loss goals with combined cardio and strength training</p>
+                        <div class="program-details">
+                            <span class="duration">60 minutes</span>
+                            <span class="price">$65/session</span>
+                        </div>
+                        <button class="view-btn" onclick="viewProgram('weightloss')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="program-card" data-program="muscle">
+                    <div class="program-image">
+                        <img src="https://images.pexels.com/photos/4761010/pexels-photo-4761010.jpeg" alt="Muscle Building">
+                        <div class="program-overlay">
+                            <span>Muscle Building</span>
+                        </div>
+                    </div>
+                    <div class="program-info">
+                        <h3>Muscle Building</h3>
+                        <p class="program-desc">Build lean muscle mass with strategic training and nutrition guidance</p>
+                        <div class="program-details">
+                            <span class="duration">60 minutes</span>
+                            <span class="price">$60/session</span>
+                        </div>
+                        <button class="view-btn" onclick="viewProgram('muscle')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="program-card" data-program="sports">
+                    <div class="program-image">
+                        <img src="https://images.pexels.com/photos/3808215/pexels-photo-3808215.jpeg" alt="Sports Performance">
+                        <div class="program-overlay">
+                            <span>Sports Performance</span>
+                        </div>
+                    </div>
+                    <div class="program-info">
+                        <h3>Sports Performance</h3>
+                        <p class="program-desc">Enhance athletic performance with sport-specific training techniques</p>
+                        <div class="program-details">
+                            <span class="duration">60 minutes</span>
+                            <span class="price">$70/session</span>
+                        </div>
+                        <button class="view-btn" onclick="viewProgram('sports')">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="modalOverlay" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-body">
+                <div class="modal-image"></div>
+                <div class="modal-text">
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalDescription"></p>
+                    <h4>Activities Include:</h4>
+                    <ul id="modalActivities"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="results-section">
+        <div class="container">
+            <h2>Proven Results</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <img src="https://images.pexels.com/photos/3873139/pexels-photo-3873139.jpeg" alt="Results 1">
+                    <div class="result-overlay">
+                        <h4>2500+</h4>
+                        <p>Clients Transformed</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <img src="https://images.pexels.com/photos/4164840/pexels-photo-4164840.jpeg" alt="Results 2">
+                    <div class="result-overlay">
+                        <h4>95%</h4>
+                        <p>Success Rate</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <img src="https://images.pexels.com/photos/3772617/pexels-photo-3772617.jpeg" alt="Results 3">
+                    <div class="result-overlay">
+                        <h4>50 lbs</h4>
+                        <p>Avg Weight Loss</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <img src="https://images.pexels.com/photos/4326949/pexels-photo-4326949.jpeg" alt="Results 4">
+                    <div class="result-overlay">
+                        <h4>150%</h4>
+                        <p>Avg Strength Gain</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <h2>Client Success Stories</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg" alt="Client">
+                    </div>
+                    <div class="testimonial-content">
+                        <h4>Sarah M.</h4>
+                        <p class="testimonial-role">Weight Loss Success</p>
+                        <p class="testimonial-text">I've never felt better! Within 3 months of personal training, I lost 30 pounds and gained so much confidence.</p>
+                        <div class="stars">
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.pexels.com/photos/1300402/pexels-photo-1300402.jpeg" alt="Client">
+                    </div>
+                    <div class="testimonial-content">
+                        <h4>John D.</h4>
+                        <p class="testimonial-role">Strength Builder</p>
+                        <p class="testimonial-text">The trainers here really understand my goals and push me to achieve them safely. Highly recommended!</p>
+                        <div class="stars">
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg" alt="Client">
+                    </div>
+                    <div class="testimonial-content">
+                        <h4>Maria L.</h4>
+                        <p class="testimonial-role">Fitness Enthusiast</p>
+                        <p class="testimonial-text">Best investment I've made for my health. The personalized attention and guidance is unmatched.</p>
+                        <div class="stars">
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg" alt="Client">
+                    </div>
+                    <div class="testimonial-content">
+                        <h4>Alex R.</h4>
+                        <p class="testimonial-role">Athlete</p>
+                        <p class="testimonial-text">From beginner to confident athlete in 6 months. The sports training program transformed my performance!</p>
+                        <div class="stars">
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking-section">
+        <div class="container">
+            <h2>Ready to Transform?</h2>
+            <p class="booking-subtitle">Book your first session today and start your fitness journey</p>
+            <div class="booking-wrapper">
+                <form id="booking-form" class="booking-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="program">Select Program</label>
+                            <select id="program" name="program" required>
+                                <option value="">Choose a program</option>
+                                <option value="strength">Strength Training</option>
+                                <option value="cardio">Cardio & Conditioning</option>
+                                <option value="flexibility">Flexibility & Mobility</option>
+                                <option value="weightloss">Weight Loss Program</option>
+                                <option value="muscle">Muscle Building</option>
+                                <option value="sports">Sports Performance</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sessions">Sessions</label>
+                            <input type="number" id="sessions" name="sessions" min="1" max="12" value="1" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="date">Preferred Start Date</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="cta-btn book-btn">Confirm Booking</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Elite Fitness</h4>
+                    <p>Transforming lives through premium fitness programs, expert coaching, and community support since 2013.</p>
+                    <div class="footer-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-text">5.0 (500+ reviews)</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="pages/personal-training.html">Personal Training</a></li>
+                        <li><a href="pages/group-classes.html">Group Classes</a></li>
+                        <li><a href="pages/nutrition-coaching.html">Nutrition Coaching</a></li>
+                        <li><a href="pages/blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+15551234567">Call: (555) 123-4567</a></li>
+                        <li><a href="mailto:hello@elitefitness.com">Email: hello@elitefitness.com</a></li>
+                        <li><a href="#">NYC, NY 10001</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links-footer">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Elite Fitness. All rights reserved. | <a href="pages/privacy.html">Privacy Policy</a> | <a href="pages/terms.html">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/personal-training-new.js"></script>
+</body>
+</html>
