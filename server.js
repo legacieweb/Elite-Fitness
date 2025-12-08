@@ -14,6 +14,12 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Serve hero video
+app.get('/video', (req, res) => {
+  const videoPath = path.join(__dirname, '3196220-uhd_3840_2160_25fps.mp4');
+  res.sendFile(videoPath);
+});
+
 // Serve index.html dynamically with video
 app.get('/', (req, res) => {
   const indexPath = path.join(__dirname, 'index.html');
@@ -23,9 +29,9 @@ app.get('/', (req, res) => {
       return;
     }
     const videoHtml = `<video autoplay muted loop playsinline preload="auto" class="hero-video">
-      <source src="3196220-uhd_3840_2160_25fps.mp4" type="video/mp4">
+      <source src="/video" type="video/mp4">
     </video>`;
-    const modifiedHtml = data.replace('<div id="hero-video-container"></div>', videoHtml);
+    const modifiedHtml = data.replace(/\s*<div id="hero-video-container"><\/div>\s*/, videoHtml);
     res.send(modifiedHtml);
   });
 });
