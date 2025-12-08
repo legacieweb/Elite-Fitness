@@ -102,3 +102,16 @@ document.querySelectorAll('.service-card').forEach(card => {
         this.querySelector('img').style.transform = 'scale(1)';
     });
 });
+
+// Force hero video to play
+window.addEventListener('load', function() {
+    const video = document.querySelector('.hero-video');
+    if (video) {
+        video.muted = true;
+        video.play().then(() => {
+            console.log('Video playing');
+        }).catch(e => {
+            console.log('Autoplay blocked', e);
+        });
+    }
+});
