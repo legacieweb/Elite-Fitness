@@ -877,7 +877,7 @@
     </style>
 </head>
 <body>
-    <a href="http://localhost:3000/" class="back-btn">
+    <a href="index.html" class="back-btn">
         <i class="fas fa-arrow-left"></i>
         Back to Elite Fitness
     </a>
@@ -1079,7 +1079,7 @@
                 } else {
                     showNotification('Access denied - Invalid quantum signature', 'error');
                     setTimeout(() => {
-                        window.location.href = 'http://localhost:3000/';
+                        window.location.href = 'https://elite-fitness-6av3.onrender.com/';
                     }, 2000);
                     return false;
                 }
@@ -1103,7 +1103,7 @@
             errorDiv.style.display = 'none';
 
             try {
-                const response = await fetch('http://localhost:3000/api/bookings');
+                const response = await fetch('https://elite-fitness-6av3.onrender.com/api/bookings');
                 if (!response.ok) {
                     throw new Error('Neural network connection failed');
                 }

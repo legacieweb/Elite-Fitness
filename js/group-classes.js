@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const experience = document.getElementById('experience').value;
 
             try {
-                const response = await fetch('http://localhost:3000/api/bookings', {
+                const response = await fetch('https://elite-fitness-6av3.onrender.com/api/bookings', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
