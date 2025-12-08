@@ -14,27 +14,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve hero video
-app.get('/video', (req, res) => {
-  const videoPath = path.join(__dirname, '3196220-uhd_3840_2160_25fps.mp4');
-  res.sendFile(videoPath);
-});
-
-// Serve index.html dynamically with video
-app.get('/', (req, res) => {
-  const indexPath = path.join(__dirname, 'index.html');
-  fs.readFile(indexPath, 'utf8', (err, data) => {
-    if (err) {
-      res.status(500).send('Error loading page');
-      return;
-    }
-    const videoHtml = `<video autoplay muted loop playsinline preload="auto" class="hero-video">
-      <source src="/video" type="video/mp4">
-    </video>`;
-    const modifiedHtml = data.replace(/\s*<div id="hero-video-container"><\/div>\s*/, videoHtml);
-    res.send(modifiedHtml);
-  });
-});
 
 // Serve static files from the root directory
 app.use(express.static('.'));
