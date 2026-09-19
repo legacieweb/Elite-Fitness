@@ -1491,10 +1491,7 @@
          });
 
         const getApiUrl = (path) => {
-            const origin = location.origin || '';
-            const isLocal = origin.includes('localhost') || location.protocol === 'file:';
-            const base = isLocal ? 'https://elite-fitness-6av3.onrender.com' : '';
-            return base + path;
+            return 'https://elite-fitness-6av3.onrender.com' + path;
         };
 
         async function checkAuthState() {

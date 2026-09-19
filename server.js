@@ -1,4 +1,4 @@
-require('dotenv').config({ path: __dirname + '/.env' });
+ï»¿require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
@@ -22,6 +22,8 @@ const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret_change_me';
 // Middleware
 const allowedOrigins = [
   process.env.FRONTEND_URL,
+  'https://hitrepublic.iyonicorp.com',
+  'https://www.hitrepublic.iyonicorp.com',
   'http://localhost:3000',
   'null', // requests from file:/// send Origin: null
 ].filter(Boolean);
@@ -1254,7 +1256,7 @@ app.post('/api/coaches/clients', requireAuth, async (req, res) => {
         await transporter.sendMail({
           from: process.env.EMAIL_USER || 'noreply@hitrepublic.fitness',
           to: user.email,
-          subject: 'Welcome to HitRepublic — Account Created by Your Coach',
+          subject: 'Welcome to HitRepublic ï¿½ Account Created by Your Coach',
           html: `
             <h2>Welcome to HitRepublic!</h2>
             <p>Your account has been created by ${coachName}.</p>

@@ -771,9 +771,7 @@
         window.DashboardApp = (function () {
             // ---- Config / helpers ----
             const getApiUrl = (path) => {
-                const origin = location.origin || '';
-                const isLocal = origin.includes('localhost') || origin.includes('127.0.0.1') || location.protocol === 'file:';
-                return (isLocal ? 'https://elite-fitness-6av3.onrender.com' : origin) + path;
+                return 'https://elite-fitness-6av3.onrender.com' + path;
             };
             const getToken = () => localStorage.getItem('authToken');
             const setToken = (t) => localStorage.setItem('authToken', t);
