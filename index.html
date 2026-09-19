@@ -1,422 +1,1582 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elite Fitness - Premium Fitness Training & Coaching</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <meta name="description" content="HitRepublic at ShiLoGym - Premium coach-focused fitness platform. Personal training, nutrition coaching, and group classes with certified expert coaches in Nairobi.">
+    <meta name="keywords" content="fitness, personal training, nutrition coaching, group classes, certified coaches, ShiLoGym, gym Nairobi, workout plans, health and wellness, HitRepublic">
+    <meta name="author" content="HitRepublic at ShiLoGym">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hitrepublic.com/">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <meta name="theme-color" content="#667eea">
+    <title>HitRepublic at ShiLoGym - Coach-Focused Fitness Platform in Nairobi</title>
+    <meta property="og:title" content="HitRepublic at ShiLoGym - Coach-Focused Fitness Platform in Nairobi">
+    <meta property="og:description" content="Premium fitness training with certified expert coaches at ShiLoGym. Personal training, nutrition coaching, and high-energy group classes tailored to your unique goals.">
+    <meta property="og:image" content="https://hitrepublic.com/images/hero-og.jpg">
+    <meta property="og:url" content="https://hitrepublic.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_KE">
+    <meta property="og:site_name" content="HitRepublic at ShiLoGym">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HitRepublic at ShiLoGym - Coach-Focused Fitness Platform">
+    <meta name="twitter:description" content="Premium fitness training with certified expert coaches. Personal training, nutrition coaching, and group classes in Nairobi.">
+    <meta name="twitter:image" content="https://hitrepublic.com/images/hero-og.jpg">
+    <meta name="twitter:site" content="@hitrepublic">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsActivityLocation",
+      "name": "HitRepublic at ShiLoGym",
+      "alternateName": "ShiLoGym",
+      "description": "Premium coach-focused fitness platform offering personal training, nutrition coaching, and group classes guided by certified coaches at ShiLoGym in Nairobi.",
+      "url": "https://hitrepublic.com/",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Garden Estate Road",
+        "addressLocality": "Nairobi",
+        "addressCountry": "KE"
+      },
+      "telephone": "+(254)715645484",
+      "email": "hello@hitrepublic.com",
+      "priceRange": "$$",
+      "amenityFeature": [
+        { "@type": "LocationFeatureSpecification", "name": "Personal Training" },
+        { "@type": "LocationFeatureSpecification", "name": "Nutrition Coaching" },
+        { "@type": "LocationFeatureSpecification", "name": "Group Classes" }
+      ],
+      "sameAs": [
+        "https://instagram.com/hitrepublic",
+        "https://facebook.com/hitrepublic",
+        "https://twitter.com/hitrepublic",
+        "https://youtube.com/hitrepublic"
+      ]
+    }
+    </script>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --fitness-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            --nutrition-gradient: linear-gradient(135deg, #00d2d3 0%, #01a1fd 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --text-tertiary: rgba(255, 255, 255, 0.6);
+            --shadow-light: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.2);
+            --border-radius: 20px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.3) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.2); }
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            background: rgba(10, 10, 10, 0.9);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-menu li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid transparent;
+        }
+
+        .nav-menu li a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .auth-links-mobile {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .auth-links-mobile .btn-auth {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-dashboard {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-avatar-initial {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            background: var(--primary-gradient);
+        }
+
+        .user-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 10px;
+            min-width: 150px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .user-menu:hover .user-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .btn-auth {
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-login {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-login:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .btn-register {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 30px 30px;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 0 40px rgba(102, 126, 234, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .stats-grid-hero {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-item-hero {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 30px 20px;
+            transition: var(--transition);
+        }
+
+        .stat-item-hero:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .stat-number-hero {
+            font-size: 2.5rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            background: linear-gradient(45deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label-hero {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .service-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-gradient);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .service-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .service-image-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 100%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-image-wrapper:hover::before {
+            opacity: 1;
+        }
+
+        .service-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-image {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 30px;
+        }
+
+        .service-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .service-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .service-link {
+            color: #4ade80;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .service-link:hover {
+            gap: 15px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-header img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .cta-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 80px 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .shilogym-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shilogym-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.9) 100%);
+            z-index: 1;
+        }
+
+        .shilogym-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            align-items: center;
+        }
+
+        .shilogym-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .shilogym-content .shilogym-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(102, 126, 234, 0.2);
+            color: #4ade80;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .shilogym-content h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .shilogym-content p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .shilogym-highlight {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .shilogym-highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .shilogym-highlight-item i {
+            color: #4ade80;
+            font-size: 1.3rem;
+        }
+
+        .shilogym-image {
+            position: relative;
+            z-index: 2;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            height: 450px;
+        }
+
+        .shilogym-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .shilogym-image:hover img {
+            transform: scale(1.05);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-brand { text-align: left; }
+        }
+
+        .footer-tagline {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-top: 12px;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .social-links { justify-content: flex-start; }
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary-gradient);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .footer-section h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--text-primary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .contact-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .contact-card i {
+            font-size: 2rem;
+            color: #4ade80;
+            margin-bottom: 15px;
+        }
+
+        .contact-card h4 {
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+
+        .coach-badge {
+            display: inline-block;
+            background: var(--primary-gradient);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .step-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-heavy);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .step-number-big {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 1.8rem;
+            color: #667eea;
+        }
+
+        .step-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .step-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .application-steps {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: var(--glass-border);
+        }
+
+        @media (max-width: 768px) {
+            .application-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .step:not(:last-child)::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .application-steps {
+                gap: 15px;
+            }
+
+            .step {
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 100px 30px 30px;
+                gap: 10px;
+                transition: right 0.3s ease;
+                border-left: 1px solid var(--glass-border);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-menu li a {
+                padding: 15px;
+                font-size: 1.1rem;
+                justify-content: flex-start;
+            }
+
+            .nav-menu li.auth-links-mobile .btn-auth {
+                padding: 14px;
+                font-size: 1.1rem;
+                justify-content: center;
+                border-radius: 15px;
+                border: 1px solid var(--glass-border);
+            }
+
+            .auth-buttons {
+                display: none;
+            }
+
+             .auth-links-mobile {
+                display: flex;
+            }
+
+            .hidden-mobile {
+                display: none !important;
+            }
+
+            @media (max-width: 768px) {
+                .hidden-mobile {
+                    display: flex !important;
+                }
+            }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid img {
+                height: 200px;
+            }
+
+            .stats-grid-hero {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+
+            .stat-item-hero {
+                padding: 20px 15px;
+            }
+
+            .stat-number-hero {
+                font-size: 1.8rem;
+            }
+
+            .stat-label-hero {
+                font-size: 0.8rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .shilogym-content h2 {
+                font-size: 2.2rem;
+            }
+
+            .shilogym-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .shilogym-image {
+                height: 350px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .stats-grid-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">Elite Fitness</div>
-            <button class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="pages/personal-training.html">Personal Training</a></li>
-                <li><a href="pages/nutrition-coaching.html">Nutrition</a></li>
-                <li><a href="pages/group-classes.html">Group Classes</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="pages/blog.html">Blog</a></li>
-            </ul>
-        </nav>
+    <header id="header">
+        <div class="container">
+            <nav>
+                <div class="logo">HitRepublic</div>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="pages/personal-training.html"><i class="fas fa-dumbbell"></i> Training</a></li>
+                    <li><a href="pages/nutrition-coaching.html"><i class="fas fa-apple-alt"></i> Nutrition</a></li>
+                    <li><a href="pages/group-classes.html"><i class="fas fa-users"></i> Classes</a></li>
+                    <li><a href="#shilogym"><i class="fas fa-heart"></i> Coaches</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li class="auth-links-mobile logged-out-mobile" id="auth-links-mobile">
+                        <a href="login.html" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                        <a href="register.html" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> Join Now</a>
+                    </li>
+                    <li class="auth-links-mobile logged-in-mobile hidden-mobile" id="auth-links-mobile-logged">
+                        <a href="#" class="btn-auth btn-dashboard" id="dashboard-link-mobile"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                        <a href="#" onclick="logoutUser()" class="btn-auth btn-login" style="margin-top: 10px;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </li>
+                </ul>
+                <div class="auth-buttons" id="auth-buttons">
+                    <a href="login.html" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    <a href="register.html" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> Join Now</a>
+                </div>
+                <div class="auth-buttons logged-in-view" id="auth-buttons-logged" style="display: none;">
+                    <a href="#" class="btn-auth btn-dashboard" id="dashboard-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <div class="user-menu" id="user-menu">
+                        <div class="user-avatar" id="user-avatar">
+                            <img src="" alt="Profile" id="user-avatar-img" style="display: none;">
+                            <div class="user-avatar-initial" id="user-initial"></div>
+                        </div>
+                        <span class="user-name" id="user-name-header"></span>
+                        <div class="user-dropdown">
+                            <a href="#" onclick="logoutUser()" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <section id="home" class="hero">
-        <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1>Your Transformation Starts Here</h1>
-            <p>Premium fitness training, expert nutrition coaching, and energetic group classes</p>
-            <button class="cta-btn">Start Your Journey</button>
-        </div>
-    </section>
-
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-wrapper">
-                <div class="about-content">
-                    <h2>Welcome to Elite Fitness</h2>
-                    <p>At Elite Fitness, we believe in transforming lives through personalized fitness programs and expert guidance. With over a decade of experience, our certified trainers and nutrition coaches are committed to helping you achieve your goals, whether you're just starting your fitness journey or looking to reach new heights.</p>
-                    <div class="about-highlights">
-                        <div class="highlight">
-                            <div class="highlight-icon">01</div>
-                            <h4>Expert Trainers</h4>
-                            <p>Certified professionals with proven track records</p>
-                        </div>
-                        <div class="highlight">
-                            <div class="highlight-icon">02</div>
-                            <h4>Personalized Approach</h4>
-                            <p>Custom programs tailored to your unique needs</p>
-                        </div>
-                        <div class="highlight">
-                            <div class="highlight-icon">03</div>
-                            <h4>Community Support</h4>
-                            <p>Join thousands of members on their fitness journey</p>
-                        </div>
-                    </div>
+            <span class="coach-badge">Expert-Led Training at ShiLo Gym</span>
+            <h1>Transform Your Fitness with Expert Coaches at ShiLo Gym</h1>
+            <p>Premium fitness training, expert nutrition coaching, and high-energy group classes — all guided by certified coaches at ShiLo Gym who build programs tailored to your unique goals</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <button class="cta-btn" onclick="location.href='register.html'"><i class="fas fa-rocket"></i> Start Your Journey</button>
+                <button class="cta-btn" onclick="location.href='#trainers'" style="background: rgba(255, 255, 255, 0.1); color: var(--text-primary); border: 1px solid var(--glass-border);"><i class="fas fa-star"></i> Meet Our Coaches</button>
+            </div>
+            <div class="stats-grid-hero">
+                <div class="stat-item-hero fade-in">
+                    <div class="stat-number-hero">50+</div>
+                    <div class="stat-label-hero">Active Members</div>
                 </div>
-                <div class="about-image">
-                    <img src="https://sunnyhealthfitness.com/cdn/shop/articles/women-weightlifting-fitness-myths-01.jpg?v=1729526406" alt="About Us">
+                <div class="stat-item-hero fade-in">
+                    <div class="stat-number-hero">10+</div>
+                    <div class="stat-label-hero">Expert Coaches</div>
+                </div>
+                <div class="stat-item-hero fade-in">
+                    <div class="stat-number-hero">10+</div>
+                    <div class="stat-label-hero">Years Experience</div>
+                </div>
+                <div class="stat-item-hero fade-in">
+                    <div class="stat-number-hero">98%</div>
+                    <div class="stat-label-hero">Success Rate</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="services" class="services-section">
+    <section id="services">
         <div class="container">
             <div class="section-header">
-                <h2>Our Premium Services</h2>
-                <p>Comprehensive fitness solutions for every goal and lifestyle</p>
+                <h2>Expert-Led Fitness Solutions</h2>
+                <p>Every program is designed by certified coaches and tailored to your unique goals and lifestyle</p>
             </div>
-            <div class="service-grid-premium">
-                <a href="pages/personal-training.html" class="service-link-premium">
-                    <div class="service-card-premium">
-                        <div class="service-card-inner">
-                            <div class="service-badge">One-on-One</div>
-                            <div class="service-image-premium">
-                                <img src="https://cvlifestyles.co.uk/wp-content/uploads/2019/02/personal-training.jpg" alt="Personal Training">
-                            </div>
-                            <div class="service-content-premium">
-                                <h3>Personal Training</h3>
-                                <p>Expert one-on-one coaching tailored to your unique fitness goals, body type, and lifestyle preferences</p>
-                                <div class="service-highlights">
-                                    <div class="highlight-item">
-                                        <span class="highlight-check">✓</span>
-                                        <span>Custom Programs</span>
-                                    </div>
-                                    <div class="highlight-item">
-                                        <span class="highlight-check">✓</span>
-                                        <span>Expert Guidance</span>
-                                    </div>
-                                    <div class="highlight-item">
-                                        <span class="highlight-check">✓</span>
-                                        <span>Progress Tracking</span>
-                                    </div>
-                                </div>
-                                <div class="cta-arrow">Explore →</div>
-                            </div>
-                        </div>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <span class="service-badge">One-on-One</span>
+                    <div class="service-image-wrapper">
+                        <img src="images/personal.png" alt="Personal Training" class="service-image" loading="lazy">
                     </div>
-                </a>
-                <a href="pages/group-classes.html" class="service-link-premium featured">
-                    <div class="service-card-premium">
-                        <div class="featured-badge">Most Popular</div>
-                        <div class="service-card-inner">
-                            <div class="service-badge">Community</div>
-                            <div class="service-image-premium">
-                                <img src="https://hips.hearstapps.com/hmg-prod/images/make-time-for-it-royalty-free-image-840886802-1538426941.jpg" alt="Group Classes">
-                            </div>
-                            <div class="service-content-premium">
-                                <h3>Group Classes</h3>
-                                <p>High-energy workouts with motivational instructors and powerful community support that keeps you accountable</p>
-                                <div class="service-highlights">
-                                    <div class="highlight-item">
-                                        <span class="highlight-check">✓</span>
-                                        <span>6 Class Types</span>
-                                    </div>
-                                    <div class="highlight-item">
-                                        <span class="highlight-check">✓</span>
-                                        <span>All Levels</span>
-                                    </div>
-                                    <div class="highlight-item">
-                                        <span class="highlight-check">✓</span>
-                                        <span>Expert Instructors</span>
-                                    </div>
-                                </div>
-                                <div class="cta-arrow">Explore →</div>
-                            </div>
-                        </div>
+                    <div class="service-content">
+                        <h3>Personal Training</h3>
+                        <p>Expert one-on-one coaching tailored to your unique fitness goals, body type, and lifestyle preferences</p>
+                        <a href="pages/personal-training.html" class="service-link">Book Training <i class="fas fa-arrow-right"></i></a>
                     </div>
-                </a>
-                <a href="pages/nutrition-coaching.html" class="service-link-premium">
-                    <div class="service-card-premium">
-                        <div class="service-card-inner">
-                            <div class="service-badge">Holistic</div>
-                            <div class="service-image-premium">
-                                <img src="https://cdn-bloha.nitrocdn.com/iYznGJZGanzaCCgxovUBGCyByrXxQITj/assets/images/optimized/rev-12377d1/www.weljii.com/wp-content/uploads/2025/10/blog-2-scaled.jpg" alt="Nutrition Coaching">
-                            </div>
-                            <div class="service-content-premium">
-                                <h3>Nutrition Coaching</h3>
-                                <p>Personalized meal plans and expert dietary guidance designed to complement your fitness goals perfectly</p>
-                                <div class="service-highlights">
-                                    <div class="highlight-item">
-                                        <span class="highlight-check">✓</span>
-                                        <span>Custom Plans</span>
-                                    </div>
-                                    <div class="highlight-item">
-                                        <span class="highlight-check">✓</span>
-                                        <span>Meal Prep Tips</span>
-                                    </div>
-                                    <div class="highlight-item">
-                                        <span class="highlight-check">✓</span>
-                                        <span>Lifestyle Support</span>
-                                    </div>
-                                </div>
-                                <div class="cta-arrow">Explore →</div>
-                            </div>
-                        </div>
+                </div>
+                <div class="service-card fade-in">
+                    <span class="service-badge">Most Popular</span>
+                    <div class="service-image-wrapper">
+                        <img src="images/groupclass.png" alt="Group Classes" class="service-image" loading="lazy">
                     </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number">5,000+</div>
-                    <div class="stat-label">Active Members</div>
+                    <div class="service-content">
+                        <h3>Group Classes</h3>
+                        <p>High-energy workouts with motivational coaches and powerful community support</p>
+                        <a href="pages/group-classes.html" class="service-link">Join Classes <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Expert Trainers</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">10+</div>
-                    <div class="stat-label">Years Experience</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">98%</div>
-                    <div class="stat-label">Success Rate</div>
+                <div class="service-card fade-in">
+                    <span class="service-badge">Holistic</span>
+                    <div class="service-image-wrapper">
+                        <img src="images/nutrition.png" alt="Nutrition Coaching" class="service-image" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Nutrition Coaching</h3>
+                        <p>Personalized meal plans and expert dietary guidance to complement your fitness goals</p>
+                        <a href="pages/nutrition-coaching.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="why-choose-section">
+
+    <section id="process" style="background: var(--glass-bg); backdrop-filter: blur(10px);">
         <div class="container">
             <div class="section-header">
-                <h2>Why Choose Elite Fitness</h2>
-                <p>What sets us apart from the rest</p>
+                <h2>Simple 3 Steps</h2>
+                <p>Getting started is quick and easy with our expert-guided process</p>
             </div>
-            <div class="reasons-grid">
-                <div class="reason-card">
-                    <div class="reason-number">1</div>
-                    <h3>Certified Professionals</h3>
-                    <p>All our trainers hold recognized fitness certifications and continuous education credentials</p>
-                </div>
-                <div class="reason-card">
-                    <div class="reason-number">2</div>
-                    <h3>State-of-the-Art Facility</h3>
-                    <p>Modern equipment and technology designed for optimal training results</p>
-                </div>
-                <div class="reason-card">
-                    <div class="reason-number">3</div>
-                    <h3>Holistic Approach</h3>
-                    <p>We focus on fitness, nutrition, and wellness for complete transformation</p>
-                </div>
-                <div class="reason-card">
-                    <div class="reason-number">4</div>
-                    <h3>Community Driven</h3>
-                    <p>Be part of a supportive community that motivates and inspires your journey</p>
-                </div>
-                <div class="reason-card">
-                    <div class="reason-number">5</div>
-                    <h3>Proven Results</h3>
-                    <p>Track record of helping thousands achieve their fitness goals</p>
-                </div>
-                <div class="reason-card">
-                    <div class="reason-number">6</div>
-                    <h3>Flexible Programs</h3>
-                    <p>Options for every lifestyle, schedule, and fitness level</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery" class="gallery-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Facility & Community</h2>
-                <p>Explore our state-of-the-art fitness facility</p>
-            </div>
-            <div class="gallery-grid">
-                <img src="https://nextgengym.fitness/wp-content/uploads/2025/10/NextGen-Gym_Front-page-1200x720.png" alt="Training Session">
-                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGhlJTIwZ3ltfGVufDB8fDB8fHww" alt="Strength Training">
-                <img src="https://trainingstation.co.uk/cdn/shop/articles/6189201ee71c047d436bdc97_IMGC9877-min-p-1080_1080x.jpg?v=1709544497" alt="Yoga Class">
-                <img src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?cs=srgb&dl=pexels-willpicturethis-1954524.jpg&fm=jpg" alt="HIIT Training">
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Success Stories</h2>
-                <p>Hear from our transformed members</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg" alt="Member">
-                        <div class="testimonial-info">
-                            <h4>Sarah Johnson</h4>
-                            <div class="stars">★★★★★</div>
-                        </div>
+            <div class="steps-container">
+                <div class="step-card fade-in">
+                    <div class="step-number-big">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-user-plus"></i>
                     </div>
-                    <p>"Elite Fitness changed my life. The personalized training program combined with nutrition coaching gave me results I never thought possible. Highly recommend!"</p>
+                    <h3>Sign Up & Assess</h3>
+                    <p>Create your account and complete our personalized fitness assessment to determine your starting point, goals, and preferences.</p>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg" alt="Member">
-                        <div class="testimonial-info">
-                            <h4>Michael Chen</h4>
-                            <div class="stars">★★★★★</div>
-                        </div>
+                <div class="step-card fade-in">
+                    <div class="step-number-big">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-clipboard-check"></i>
                     </div>
-                    <p>"The group classes kept me motivated and accountable. The community here is amazing, and the instructors really care about your progress."</p>
+                    <h3>Get Your Plan</h3>
+                    <p>Receive a custom workout and nutrition plan crafted by one of our certified coaches, tailored specifically to your body and goals.</p>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <img src="https://images.pexels.com/photos/1181472/pexels-photo-1181472.jpeg" alt="Member">
-                        <div class="testimonial-info">
-                            <h4>Emma Davis</h4>
-                            <div class="stars">★★★★★</div>
-                        </div>
+                <div class="step-card fade-in">
+                    <div class="step-number-big">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-bolt"></i>
                     </div>
-                    <p>"From nutrition guidance to personal training, Elite Fitness provided everything I needed. My transformation exceeded all my expectations!"</p>
+                    <h3>Start Transforming</h3>
+                    <p>Follow your plan with daily workouts, track progress in real-time, and get ongoing support from your assigned coach.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <button class="cta-btn" onclick="location.href='register.html'"><i class="fas fa-arrow-right"></i> Get Started Today</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="shilogym" class="shilogym-section fade-in">
+        <div class="container">
+            <div class="shilogym-grid">
+                <div class="shilogym-content">
+                    <div class="shilogym-badge"><i class="fas fa-heart"></i> Client & Coach Partnership</div>
+                    <h2>Your Success, Guided by Certified Coaches</h2>
+                    <p>At ShiLoGym, every client works hand-in-hand with a certified coach who designs personalized workout and nutrition plans tailored to your unique body, goals, and lifestyle. Our coaches provide ongoing feedback, real-time progress tracking, and the motivation you need to stay consistent and reach your full potential.</p>
+                    <div class="shilogym-highlight">
+                        <div class="shilogym-highlight-item"><i class="fas fa-user-shield"></i> 1-on-1 Coach Assignments</div>
+                        <div class="shilogym-highlight-item"><i class="fas fa-chart-line"></i> Real-Time Progress Tracking</div>
+                        <div class="shilogym-highlight-item"><i class="fas fa-clock"></i> Flexible Scheduling</div>
+                        <div class="shilogym-highlight-item"><i class="fas fa-award"></i> Certified Expert Coaches</div>
+                    </div>
+                    <div style="margin-top: 40px;">
+                        <button class="cta-btn" onclick="location.href='register.html'"><i class="fas fa-rocket"></i> Get Matched with a Coach</button>
+                    </div>
+                </div>
+                <div class="shilogym-image">
+                    <img src="https://shilohgym.com/assets/gallery-3-DJKuuaK8.jpg" alt="Certified coach guiding a client through a personalized workout session">
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="cta-section">
-        <div class="container">
-            <h2>Ready to Transform Your Life?</h2>
-            <p>Join thousands of members who have already achieved their fitness goals</p>
-            <button class="cta-btn">Get Started Today</button>
-        </div>
-    </section>
-
-    <section id="contact" class="contact-section">
+    <section id="contact">
         <div class="container">
             <div class="section-header">
                 <h2>Get In Touch</h2>
                 <p>We're here to answer your questions and help you start your fitness journey</p>
             </div>
-            <div class="contact-elegant">
-                <div class="contact-cards">
-                    <div class="contact-card-item">
-                        <h4>Location</h4>
-                        <p>123 Fitness Avenue</p>
-                        <p>New York, NY 10001</p>
-                    </div>
-                    <div class="contact-card-item">
-                        <h4>Phone</h4>
-                        <p>(555) 123-4567</p>
-                        <p>Call us anytime</p>
-                    </div>
-                    <div class="contact-card-item">
-                        <h4>Hours</h4>
-                        <p>Mon-Fri: 6am - 10pm</p>
-                        <p>Sat-Sun: 8am - 8pm</p>
-                    </div>
-                    <div class="contact-card-item">
-                        <h4>Email</h4>
-                        <p>hello@elitefitness.com</p>
-                        <p>We reply within 24h</p>
-                    </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Location</h4>
+                    <p>Garden Estate Road, Nairobi</p>
                 </div>
-                <form id="contact-form" class="contact-form-elegant">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" placeholder="John Doe" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" placeholder="john@example.com" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="tel" placeholder="(555) 000-0000" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Subject</label>
-                            <input type="text" placeholder="What is this about?" required>
-                        </div>
-                    </div>
-                    <div class="form-group-full">
-                        <label>Message</label>
-                        <textarea placeholder="Tell us about your fitness goals and how we can help..." rows="6" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn-elegant">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <section class="location-map-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Find Us</h2>
-                <p>Visit our state-of-the-art facility</p>
-            </div>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.1234567890!2d-74.0060!3d40.7128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a23e9bb59f1%3A0x1234567890abc!2s123%20Fitness%20Avenue%2C%20New%20York%2C%20NY%2010001!5e0!3m2!1sen!2sus!4v1234567890" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                <div class="location-info-pin">
-                    <div class="pin-text">
-                        <h4>Elite Fitness HQ</h4>
-                        <p>123 Fitness Avenue, NYC, NY 10001</p>
-                    </div>
+                <div class="contact-card">
+                    <i class="fas fa-phone"></i>
+                    <h4>Phone</h4>
+                    <p>+(254)715 645484</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h4>Email</h4>
+                    <p>hello@hitrepublic.com</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-clock"></i>
+                    <h4>Hours</h4>
+                    <p>Mon-Fri: 6am-10pm | Sat-Sun: 7am-1pm</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Elite Fitness</h4>
-                    <p>Transforming lives through premium fitness programs, expert coaching, and community support since 2013.</p>
-                    <div class="footer-rating">
-                        <span class="stars">★★★★★</span>
-                        <span class="rating-text">5.0 (500+ reviews)</span>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="pages/personal-training.html">Personal Training</a></li>
-                        <li><a href="pages/group-classes.html">Group Classes</a></li>
-                        <li><a href="pages/nutrition-coaching.html">Nutrition Coaching</a></li>
-                        <li><a href="pages/blog.html">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="tel:+15551234567">Call: (555) 123-4567</a></li>
-                        <li><a href="mailto:hello@elitefitness.com">Email: hello@elitefitness.com</a></li>
-                        <li><a href="#">NYC, NY 10001</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Follow Us</h4>
-                    <div class="social-links-footer">
-                        <a href="#" class="social-link">Facebook</a>
-                        <a href="#" class="social-link">Instagram</a>
-                        <a href="#" class="social-link">Twitter</a>
-                        <a href="#" class="social-link">LinkedIn</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Elite Fitness. All rights reserved. | <a href="pages/privacy.html">Privacy Policy</a> | <a href="pages/terms.html">Terms of Service</a></p>
-            </div>
-        </div>
-    </footer>
+     <footer>
+         <div class="container">
+             <div class="footer-content">
+                 <div class="footer-section footer-brand">
+                      <h4>HitRepublic at ShiLoGym</h4>
+                      <p class="footer-tagline">Transform Your Fitness. Elevate Your Life.</p>
+                      <p style="color: var(--text-tertiary); font-size: 0.85rem; max-width: 220px; margin: 0 auto;">Premium coach-focused fitness training at ShiLoGym, Nairobi.</p>
+                     <div class="social-links">
+                         <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                         <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                         <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                         <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                     </div>
+                 </div>
+                 <div class="footer-section">
+                     <h4>Services</h4>
+                     <ul>
+                         <li><a href="pages/personal-training.html">Personal Training</a></li>
+                         <li><a href="pages/group-classes.html">Group Classes</a></li>
+                         <li><a href="pages/nutrition-coaching.html">Nutrition Coaching</a></li>
+                         <li><a href="user-dashboard.html">Member Dashboard</a></li>
+                         <li><a href="admin.html">Admin Portal</a></li>
+                     </ul>
+                 </div>
+                 <div class="footer-section">
+                      <h4>Company</h4>
+                      <ul>
+                          <li><a href="pages/about.html">About Us</a></li>
+                          <li><a href="#shilogym">Coaches & Clients</a></li>
+                          <li><a href="pages/blog.html">Blog</a></li>
+                          <li><a href="pages/contact.html">Contact</a></li>
+                      </ul>
+                 </div>
+                 <div class="footer-section">
+                     <h4>Account</h4>
+                     <ul>
+                         <li><a href="login.html">Login</a></li>
+                         <li><a href="register.html">Register</a></li>
+                     </ul>
+                 </div>
+                 <div class="footer-section">
+                     <h4>Legal</h4>
+                     <ul>
+                         <li><a href="pages/privacy.html">Privacy Policy</a></li>
+                         <li><a href="pages/terms.html">Terms of Service</a></li>
+                         <li><a href="pages/careers.html">Careers</a></li>
+                     </ul>
+                 </div>
+             </div>
+             <div class="footer-bottom">
+                 <p>&copy; 2026 HitRepublic. All rights reserved.</p>
+             </div>
+         </div>
+     </footer>
 
-    <script src="js/script.js"></script>
+    <script>
+        document.getElementById('hamburger').addEventListener('click', function() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-menu').classList.remove('active');
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+         document.querySelectorAll('.fade-in').forEach(el => {
+             observer.observe(el);
+         });
+
+        const getApiUrl = (path) => {
+            const origin = location.origin || '';
+            const isLocal = origin.includes('localhost') || location.protocol === 'file:';
+            const base = isLocal ? 'https://elite-fitness-6av3.onrender.com' : '';
+            return base + path;
+        };
+
+        async function checkAuthState() {
+            const token = localStorage.getItem('authToken');
+            if (!token) return;
+
+            try {
+                const res = await fetch(getApiUrl('/api/auth/me'), {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+
+                if (data.success && data.user) {
+                    showLoggedInNav(data.user);
+                } else {
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('isCoach');
+                    localStorage.removeItem('isAdmin');
+                    localStorage.removeItem('forcePasswordChange');
+                }
+            } catch (err) {
+                console.error('Auth check error:', err);
+            }
+        }
+
+        function showLoggedInNav(user) {
+            document.getElementById('auth-buttons').style.display = 'none';
+            const loggedView = document.getElementById('auth-buttons-logged');
+            if (loggedView) loggedView.style.display = 'flex';
+
+            const initial = document.getElementById('user-initial');
+            const avatarImg = document.getElementById('user-avatar-img');
+            const nameEl = document.getElementById('user-name-header');
+
+            const displayName = user.first_name || user.email || 'User';
+            if (nameEl) nameEl.textContent = displayName;
+
+            if (initial) {
+                initial.textContent = displayName.charAt(0).toUpperCase();
+                initial.style.display = 'flex';
+            }
+            if (avatarImg) avatarImg.style.display = 'none';
+
+            const isCoach = localStorage.getItem('isCoach') === 'true';
+            const isAdmin = localStorage.getItem('isAdmin') === 'true';
+            const dashboardLink = document.getElementById('dashboard-link');
+            const dashboardLinkMobile = document.getElementById('dashboard-link-mobile');
+            const dashboardHref = isCoach ? 'coach-dashboard.html' : isAdmin ? 'admin.html' : 'user-dashboard.html';
+            if (dashboardLink) dashboardLink.href = dashboardHref;
+            if (dashboardLinkMobile) dashboardLinkMobile.href = dashboardHref;
+
+            const mobileNav = document.getElementById('auth-links-mobile');
+            if (mobileNav) mobileNav.classList.add('hidden-mobile');
+            const mobileNavLogged = document.getElementById('auth-links-mobile-logged');
+            if (mobileNavLogged) mobileNavLogged.classList.remove('hidden-mobile');
+        }
+
+        async function logoutUser() {
+            const token = localStorage.getItem('authToken');
+            if (token) {
+                try {
+                    await fetch(getApiUrl('/api/auth/logout'), {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: { 'Authorization': 'Bearer ' + token }
+                    });
+                } catch (err) {
+                    console.error('Logout error:', err);
+                }
+            }
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('isCoach');
+            localStorage.removeItem('isAdmin');
+            localStorage.removeItem('forcePasswordChange');
+            sessionStorage.removeItem('userEmail');
+            window.location.href = 'index.html';
+        }
+
+        checkAuthState();
+     </script>
 </body>
 </html>
+

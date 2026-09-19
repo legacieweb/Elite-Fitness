@@ -1,0 +1,2318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Dashboard - HitRepublic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --fitness-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            --nutrition-gradient: linear-gradient(135deg, #00d2d3 0%, #01a1fd 100%);
+            --goals-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-bg-solid: rgba(255, 255, 255, 0.03);
+            --glass-border-solid: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.85);
+            --text-tertiary: rgba(255, 255, 255, 0.5);
+            --shadow-sm: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.25);
+            --border-radius: 20px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.3) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition-fast);
+            z-index: 10;
+        }
+
+        .back-to-home:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+
+        /* ===== COACH HEADER / TOP BAR ===== */
+        .coach-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px);
+            z-index: 900;
+        }
+
+        .coach-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2px;
+        }
+
+        .coach-header .coach-header-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+        }
+
+        .coach-header .coach-header-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== HEADER BUTTONS ===== */
+        .header-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .header-btn.btn-gradient {
+            background: var(--primary-gradient);
+            border-color: rgba(102, 126, 234, 0.3);
+            color: white;
+        }
+
+        .header-btn.btn-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .logout-btn {
+            background: var(--secondary-gradient);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-fast);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(240, 147, 248, 0.4);
+        }
+
+        /* ===== STAT BAR ===== */
+        .stat-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-item-bar {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 24px;
+            text-align: center;
+            transition: var(--transition-fast);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-item-bar:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .stat-item-bar .stat-icon-bar {
+            width: 56px; height: 56px;
+            border-radius: 16px;
+            background: rgba(102, 126, 234, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+            font-size: 1.4rem;
+            color: #667eea;
+        }
+
+        .stat-value-bar {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label-bar {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        .main-wrapper {
+            flex: 1;
+            min-height: 100vh;
+            padding: 32px;
+        }
+
+        .dashboard-header { margin-bottom: 32px; }
+
+        .dashboard-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== DASHBOARD CARD ===== */
+        .dashboard-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-fast);
+        }
+
+        .dashboard-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .card-header .card-icon {
+            width: 44px; height: 44px;
+            border-radius: 14px;
+            background: rgba(102, 126, 234, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #667eea;
+            flex-shrink: 0;
+        }
+
+        .card-header h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+        }
+
+        .card-header h2 .card-title-main {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-content { padding: 24px; }
+
+        .clients-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .clients-table th {
+            text-align: left;
+            padding: 12px 16px;
+            color: var(--text-tertiary);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--glass-border-solid);
+        }
+
+        .clients-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--glass-border-solid);
+        }
+
+        .clients-table tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .client-name {
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4ade80;
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #fbbf24;
+        }
+
+        .status-completed {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.75rem;
+        }
+
+        .loading-row {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-tertiary);
+        }
+
+        .password-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .password-modal.active { display: flex; }
+
+        .password-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .password-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .password-card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 8px;
+            transition: var(--transition-fast);
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .password-hint {
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 2000;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .notification.success { background: var(--success-gradient); border-color: rgba(79, 172, 254, 0.3); }
+        .notification.error { background: var(--secondary-gradient); border-color: rgba(240, 147, 248, 0.3); }
+
+        .coach-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .coach-modal-overlay.active { display: flex; }
+        .coach-modal {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: left;
+            box-shadow: var(--shadow-lg);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .coach-modal h2 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .coach-modal p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* ===== FORM STYLES (global) ===== */
+        .form-group-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: var(--transition-fast);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-row-two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .form-row-two { grid-template-columns: 1fr; }
+        }
+
+        .coach-modal .form-group-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+        .coach-modal .form-input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: var(--transition-fast);
+        }
+        .coach-modal .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .coach-modal .form-input::placeholder { color: rgba(255, 255, 255, 0.4); }
+
+        /* ===== DROPDOWN (select) TEXT ===== */
+        .coach-modal select.form-input,
+        select.form-input,
+        select.form-input-sm {
+            color: #000 !important;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        select.form-input option,
+        select.form-input-sm option {
+            color: #000;
+            background: #fff;
+        }
+
+        /* ===== MODAL RESPONSIVENESS ===== */
+        @media (max-width: 600px) {
+            .coach-modal {
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 20px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+        }
+        .coach-modal .form-row-two {
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            color: #4ade80;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            text-align: center;
+            word-break: break-all;
+        }
+
+        .coach-modal .form-row-two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .coach-modal .form-row-two { grid-template-columns: 1fr; }
+        }
+
+        .temp-password-display {
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            color: #4ade80;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            text-align: center;
+            word-break: break-all;
+        }
+
+        .plan-selector-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        .plan-selector-option:hover {
+            border-color: rgba(102, 126, 234, 0.3);
+            background: rgba(102, 126, 234, 0.1);
+        }
+        .plan-selector-option input[type="radio"] {
+            transform: scale(1.3);
+        }
+
+        /* ===== PROFILE MANAGEMENT ===== */
+        .profile-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 28px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-fast);
+        }
+
+        .profile-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-card h3 .card-title-main {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .profile-picture-upload {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .profile-pic-preview-lg {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid var(--glass-border);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .profile-pic-preview-lg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-pic-placeholder {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .pic-upload-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pic-upload-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .profile-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .profile-form-grid { grid-template-columns: 1fr; }
+        }
+
+        .profile-form-grid .form-group-full {
+            grid-column: 1 / -1;
+        }
+
+        /* ===== WORKOUT PLAN CREATION ===== */
+        .exercise-item-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+        }
+
+        .exercise-item-row .form-input-sm {
+            padding: 10px 14px;
+            border: 2px solid var(--glass-border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .exercise-item-row .form-input-sm:focus {
+            outline: none;
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .ex-remove-btn {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+
+        .ex-remove-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .exercise-library-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .exercise-suggestion {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .exercise-suggestion:hover {
+            background: rgba(102, 126, 234, 0.15);
+            color: var(--text-primary);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .loading-row {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-tertiary);
+        }
+
+        .table-scroll {
+            max-height: 480px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(102, 126, 234, 0.3) transparent;
+        }
+
+        .table-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .table-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .table-scroll::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.3);
+            border-radius: 4px;
+        }
+
+        .table-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(102, 126, 234, 0.5);
+        }
+
+        /* ===== CLIENT AVATAR IN TABLE ===== */
+        .client-cell { display: flex; align-items: center; gap: 10px; }
+        .client-avatar-sm {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: var(--primary-gradient);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .client-name.clickable {
+            cursor: pointer;
+            transition: color .2s ease;
+        }
+        .client-name.clickable:hover {
+            color: var(--accent);
+        }
+        .client-name .client-cell:hover .client-avatar-sm {
+            border-color: var(--accent);
+            box-shadow: 0 0 8px rgba(102, 126, 234, .4);
+        }
+
+        /* ===== CLIENT DETAIL MODAL ===== */
+        .client-detail-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            margin: 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            align-items: flex-start;
+            justify-content: center;
+            z-index: 2000;
+            overflow-y: auto;
+        }
+        .client-detail-overlay.active { display: flex; }
+        .client-detail-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border-solid);
+            border-radius: 24px;
+            padding: 32px;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px 0;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp .5s ease both;
+            position: relative;
+        }
+        .client-detail-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 26px;
+            background: var(--accent-gradient);
+            opacity: 0.08;
+            filter: blur(24px);
+            z-index: -1;
+        }
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        .detail-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--glass-border-solid);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .detail-header-info h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .detail-header-info h2 .name-accent {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .detail-header-info p {
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+        }
+        .detail-close-btn {
+            margin-left: auto;
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--glass-border);
+            color: var(--text-tertiary);
+            cursor: pointer;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .25s ease;
+        }
+        .detail-close-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--text-primary);
+            border-color: var(--accent);
+        }
+
+        /* ===== DETAIL STATS ===== */
+        .detail-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .detail-stat-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 20px;
+            text-align: center;
+            transition: all .25s ease;
+        }
+        .detail-stat-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-4px);
+            border-color: rgba(102, 126, 234, .3);
+        }
+        .detail-stat-card .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(102, 126, 234, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 1.3rem;
+            color: var(--accent);
+        }
+        .detail-stat-card .stat-val {
+            font-size: 1.8rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .detail-stat-card .stat-lbl {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        /* ===== DETAIL SECTIONS ===== */
+        .detail-section {
+            margin-bottom: 28px;
+        }
+        .detail-section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .detail-section-title i { color: var(--accent); }
+
+        /* ===== WEEKLY ACTIVITY BARS ===== */
+        .weekly-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            height: 160px;
+            padding: 10px 0;
+        }
+        .weekly-bar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .weekly-bar .bar {
+            width: 100%;
+            max-width: 50px;
+            border-radius: 6px 6px 0 0;
+            background: var(--accent-gradient);
+            transition: height .5s ease;
+            min-height: 4px;
+        }
+        .weekly-bar .bar.low { background: rgba(102, 126, 234, .4); }
+        .weekly-bar .date {
+            font-size: 0.68rem;
+            color: var(--text-tertiary);
+        }
+        .weekly-bar .cal {
+            font-size: 0.68rem;
+            color: var(--text-tertiary);
+        }
+
+        /* ===== DETAIL INFO GRID ===== */
+        .detail-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .detail-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .detail-info-item .info-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            color: var(--text-tertiary);
+        }
+        .detail-info-item .info-value {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* ===== DETAIL LIST ITEMS ===== */
+        .detail-list {
+            list-style: none;
+        }
+        .detail-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .04);
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        .detail-list li:last-child { border-bottom: none; }
+        .detail-list .item-name { color: var(--text-primary); font-weight: 500; }
+        .detail-list .item-meta { color: var(--text-tertiary); font-size: 0.8rem; }
+        .detail-list .item-cal { color: var(--accent); font-weight: 600; }
+        .empty-detail {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .coach-header {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .coach-header .coach-header-controls {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+            .top-bar-right { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .main-content { padding: 20px; }
+            .detail-stats { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .exercise-item-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .coach-modal {
+                padding: 20px;
+            }
+            .stat-item-bar { padding: 18px 12px; }
+            .coach-header h1 { font-size: 1.5rem; }
+            .dashboard-header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-to-home">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <div class="coach-header">
+        <div>
+            <h1><i class="fas fa-dumbbell"></i> Coach Dashboard</h1>
+            <div class="coach-header-subtitle">Manage your clients and workout plans</div>
+        </div>
+        <div class="coach-header-controls">
+            <button class="header-btn" id="editProfileBtn">
+                <i class="fas fa-user-edit"></i> Edit Profile
+            </button>
+            <button class="header-btn btn-gradient" id="createPlanBtn">
+                <i class="fas fa-plus"></i> Create Workout Plan
+            </button>
+            <button class="header-btn" id="addClientBtn">
+                <i class="fas fa-user-plus"></i> Add Client
+            </button>
+            <button class="header-btn" id="changePasswordBtn">
+                <i class="fas fa-key"></i> Change Password
+            </button>
+            <div class="coach-info" style="display: flex; align-items: center; gap: 16px;">
+                <div class="coach-meta" style="text-align: right;">
+                    <div class="name" style="font-weight: 600; font-size: 1rem; color: var(--text-primary);"></div>
+                    <div class="specialty" style="color: var(--text-tertiary); font-size: 0.85rem;"></div>
+                </div>
+                <div class="coach-avatar"></div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="main-content">
+            <div class="dashboard-header">
+                <h1>Your Clients</h1>
+                <p>Manage your client roster and track their progress</p>
+            </div>
+
+            <div class="stat-bar">
+                <div class="stat-item-bar" style="background: rgba(102, 126, 234, 0.1);">
+                    <div class="stat-icon-bar" style="background: rgba(102, 126, 234, 0.15); color: #667eea;"><i class="fas fa-users"></i></div>
+                    <div class="stat-value-bar" id="clientCount">0</div>
+                    <div class="stat-label-bar">Assigned Clients</div>
+                </div>
+                <div class="stat-item-bar" style="background: rgba(76, 175, 80, 0.1);">
+                    <div class="stat-icon-bar" style="background: rgba(76, 175, 80, 0.15); color: #4ade80;"><i class="fas fa-user-check"></i></div>
+                    <div class="stat-value-bar" id="activeCount">0</div>
+                    <div class="stat-label-bar">Active Training</div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card" style="margin-bottom: 24px;">
+                    <div class="card-header">
+                        <h2><i class="fas fa-users" style="color: #667eea;"></i> Your Clients</h2>
+                    </div>
+                    <div class="card-content" style="padding: 16px 24px 24px;">
+                        <div class="table-scroll" style="max-height: 480px; overflow-y: auto;">
+                            <table class="clients-table">
+                                <thead>
+                                    <tr>
+                                        <th>Client</th>
+                                        <th>Email</th>
+                                        <th>Membership</th>
+                                        <th>Workout Plan</th>
+                                        <th>Status</th>
+                                        <th style="text-align: right;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="clientsTableBody">
+                                    <tr><td colspan="6" class="loading-row">Loading clients...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-user" style="color: #667eea;"></i> <span class="card-title-main">Profile Information</span></h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="profile-picture-upload">
+                            <div class="profile-pic-preview-lg" id="profilePicPreview">
+                                <span class="pic-placeholder" id="profilePicPlaceholder">?</span>
+                                <img src="" alt="Profile" id="profilePicImg" style="display: none;">
+                            </div>
+                            <div>
+                                <input type="file" id="profilePicUpload" accept="image/*" style="display: none;">
+                                <button type="button" class="pic-upload-btn" onclick="document.getElementById('profilePicUpload').click()">
+                                    <i class="fas fa-upload"></i> Upload Photo
+                                </button>
+                                <div style="color: var(--text-tertiary); font-size: 0.8rem; margin-top: 8px;">Max 2MB (JPG, PNG, GIF)</div>
+                            </div>
+                        </div>
+                        <div class="profile-form-grid" style="gap: 24px;">
+                            <div>
+                                <label class="form-group-label" for="coachFirstNameEdit">First Name</label>
+                                <input type="text" id="coachFirstNameEdit" class="form-input">
+                            </div>
+                            <div>
+                                <label class="form-group-label" for="coachLastNameEdit">Last Name</label>
+                                <input type="text" id="coachLastNameEdit" class="form-input">
+                            </div>
+                            <div class="form-group-full">
+                                <label class="form-group-label" for="coachEmailEdit">Email Address</label>
+                                <input type="email" id="coachEmailEdit" class="form-input" disabled>
+                            </div>
+                            <div>
+                                <label class="form-group-label" for="coachPhoneEdit">Phone</label>
+                                <input type="tel" id="coachPhoneEdit" class="form-input" placeholder="(555) 123-4567">
+                            </div>
+                            <div>
+                                <label class="form-group-label" for="coachSpecialtyEdit">Specialty</label>
+                                <input type="text" id="coachSpecialtyEdit" class="form-input" placeholder="General Fitness">
+                            </div>
+                            <div class="form-group-full" style="display: flex; justify-content: flex-end;">
+                                <button class="btn btn-primary" onclick="saveCoachProfile()" id="saveProfileBtn">
+                                    <i class="fas fa-save"></i> Save Profile
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div class="password-modal" id="passwordModal">
+        <div class="password-card">
+            <h2><i class="fas fa-key"></i> Change Password</h2>
+            <p>Set a new password for your coach account.</p>
+            <input type="password" class="password-input" id="currentPassword" placeholder="Current password">
+            <input type="password" class="password-input" id="newPassword" placeholder="New password (min 8 characters)">
+            <input type="password" class="password-input" id="confirmPassword" placeholder="Confirm new password">
+            <div class="password-hint">Password must be at least 8 characters long.</div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-secondary" id="cancelPasswordChange">Cancel</button>
+                <button class="btn btn-primary" id="savePasswordChange">Save Password</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Client Modal -->
+    <div class="coach-modal-overlay" id="addClientModal">
+        <div class="coach-modal">
+            <h2><i class="fas fa-user-plus"></i> Create Client Account</h2>
+            <form id="add-client-form">
+                <div class="form-row-two">
+                    <div>
+                        <label class="form-group-label" for="client-first-name">First name *</label>
+                        <input type="text" id="client-first-name" class="form-input" placeholder="John" required>
+                    </div>
+                    <div>
+                        <label class="form-group-label" for="client-last-name">Last name *</label>
+                        <input type="text" id="client-last-name" class="form-input" placeholder="Doe" required>
+                    </div>
+                </div>
+                <label class="form-group-label" for="client-email">Email *</label>
+                <input type="email" id="client-email" class="form-input" placeholder="client@example.com" required>
+                <div class="form-row-two">
+                    <div>
+                        <label class="form-group-label" for="client-phone">Phone</label>
+                        <input type="tel" id="client-phone" class="form-input" placeholder="(555) 123-4567">
+                    </div>
+                    <div>
+                        <label class="form-group-label" for="client-password">Temporary password</label>
+                        <input type="password" id="client-password" class="form-input" placeholder="Leave blank to generate">
+                    </div>
+                </div>
+                <div id="generated-password-display" style="display: none;"></div>
+                <label class="form-group-label" style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px; font-size: 0.85rem; color: var(--text-secondary);">
+                    <input type="checkbox" id="client-send-email"> Send credentials to client via email
+                </label>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                    <button type="button" class="btn btn-secondary" id="cancelAddClient">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="create-client-btn">
+                        <span class="btn-text"><i class="fas fa-user-plus"></i> Create Client</span>
+                        <span class="btn-loading" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Creating...</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Assign Workout Plan Modal -->
+    <div class="coach-modal-overlay" id="assignPlanModal">
+        <div class="coach-modal">
+            <h2><i class="fas fa-dumbbell"></i> Assign Workout Plan</h2>
+            <p id="assign-plan-client-name" style="color: var(--text-secondary); margin-bottom: 20px;">Select a workout plan for this client.</p>
+            <div id="plan-options-list" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
+                <div style="text-align: center; padding: 30px; color: var(--text-tertiary);">
+                    <i class="fas fa-spinner fa-spin"></i> Loading plans...
+                </div>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                <button type="button" class="btn btn-secondary" id="cancelAssignPlan">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-assign-plan-btn">
+                    <span class="btn-text"><i class="fas fa-check"></i> Assign Plan</span>
+                </button>
+            </div>
+        </div>
+     </div>
+
+     <!-- Create Workout Plan Modal -->
+     <div class="coach-modal-overlay" id="createPlanModal">
+         <div class="coach-modal" style="max-width: 700px;">
+             <h2><i class="fas fa-plus-circle"></i> Create Workout Plan</h2>
+             <p style="color: var(--text-secondary); margin-bottom: 20px;">Create a custom workout plan with exercises, sets, and reps.</p>
+             <label class="form-group-label" for="plan-name">Plan Name *</label>
+             <input type="text" id="plan-name" class="form-input" placeholder="e.g., 4-Week Beginner Strength">
+             <label class="form-group-label" for="plan-description">Description</label>
+             <input type="text" id="plan-description" class="form-input" placeholder="Brief description of the plan">
+             <div class="form-row-two">
+                 <div>
+                     <label class="form-group-label" for="plan-difficulty">Difficulty</label>
+                     <select id="plan-difficulty" class="form-input">
+                         <option value="beginner">Beginner</option>
+                         <option value="intermediate" selected>Intermediate</option>
+                         <option value="advanced">Advanced</option>
+                     </select>
+                 </div>
+                 <div>
+                     <label class="form-group-label" for="plan-mandatory" style="display: flex; align-items: center; gap: 8px;">
+                         <input type="checkbox" id="plan-mandatory" style="transform: scale(1.3);"> Mandatory
+                     </label>
+                 </div>
+             </div>
+             <label class="form-group-label" style="margin-top: 16px; margin-bottom: 8px; display: block;">Exercises</label>
+             <div class="exercise-library-suggestions" id="exerciseSuggestions"></div>
+             <div id="exerciseItemsList">
+                 <div style="color: var(--text-tertiary); font-size: 0.85rem; text-align: center; padding: 20px;">
+                     <i class="fas fa-info-circle"></i> No exercises added yet. Click an exercise from the suggestions below or use the Add button.
+                 </div>
+             </div>
+             <button type="button" class="btn btn-secondary" style="margin-top: 12px; width: 100%;" onclick="addExerciseItem()">
+                 <i class="fas fa-plus"></i> Add Exercise
+             </button>
+             <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px;">
+                 <button type="button" class="btn btn-secondary" onclick="closeCreatePlanModal()">Cancel</button>
+                 <button type="button" class="btn btn-primary" onclick="createWorkoutPlan()" id="createPlanSubmitBtn" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                     <span class="btn-text"><i class="fas fa-save"></i> Create Plan</span>
+                 </button>
+             </div>
+         </div>
+     </div>
+
+     <!-- Client Detail Modal -->
+     <div class="client-detail-overlay" id="clientDetailModal">
+         <div class="client-detail-card">
+             <div class="detail-header">
+                 <div class="detail-avatar" id="detailAvatar">?</div>
+                 <div class="detail-header-info">
+                     <h2 id="detailClientName">Client <span class="name-accent">Name</span></h2>
+                     <p id="detailClientEmail">client@email.com</p>
+                 </div>
+                 <button class="detail-close-btn" onclick="closeClientDetailModal()">
+                     <i class="fas fa-times"></i>
+                 </button>
+             </div>
+
+             <div class="detail-stats">
+                 <div class="detail-stat-card">
+                     <div class="stat-icon"><i class="fas fa-dumbbell"></i></div>
+                     <div class="stat-val" id="detailStatWorkouts">0</div>
+                     <div class="stat-lbl">Workouts</div>
+                 </div>
+                 <div class="detail-stat-card">
+                     <div class="stat-icon"><i class="fas fa-fire"></i></div>
+                     <div class="stat-val" id="detailStatCalories">0</div>
+                     <div class="stat-lbl">Calories Burned</div>
+                 </div>
+                 <div class="detail-stat-card">
+                     <div class="stat-icon"><i class="fas fa-bullseye"></i></div>
+                     <div class="stat-val" id="detailStatProgress">0%</div>
+                     <div class="stat-lbl">Goal Progress</div>
+                 </div>
+                 <div class="detail-stat-card">
+                     <div class="stat-icon"><i class="fas fa-apple-alt"></i></div>
+                     <div class="stat-val" id="detailStatMeals">0</div>
+                     <div class="stat-lbl">Recent Meals</div>
+                 </div>
+             </div>
+
+             <div class="detail-info-grid" id="detailInfoGrid"></div>
+
+             <div class="detail-section">
+                 <div class="detail-section-title"><i class="fas fa-chart-bar"></i> Weekly Activity</div>
+                 <div class="weekly-chart" id="weeklyChart"></div>
+             </div>
+
+             <div class="detail-section">
+                 <div class="detail-section-title"><i class="fas fa-bullseye"></i> Fitness Goals</div>
+                 <ul class="detail-list" id="detailGoalsList"></ul>
+             </div>
+
+             <div class="detail-section">
+                 <div class="detail-section-title"><i class="fas fa-bolt"></i> Recent Workouts</div>
+                 <ul class="detail-list" id="detailWorkoutsList"></ul>
+             </div>
+
+             <div class="detail-section">
+                 <div class="detail-section-title"><i class="fas fa-apple-alt"></i> Recent Nutrition</div>
+                 <ul class="detail-list" id="detailNutritionList"></ul>
+             </div>
+
+             <div class="detail-section">
+                 <div class="detail-section-title"><i class="fas fa-dumbbell"></i> Assigned Workout Plan</div>
+                 <div id="detailPlanInfo"></div>
+             </div>
+         </div>
+     </div>
+
+     <div class="notification" id="notification"></div>
+
+    <script>
+        const getApiUrl = (path) => {
+            const origin = location.origin || '';
+            const isLocal = origin.includes('localhost') || location.protocol === 'file:';
+            const base = isLocal ? 'https://elite-fitness-6av3.onrender.com' : '';
+            return base + path;
+        };
+
+        const getToken = () => localStorage.getItem('authToken');
+        const isCoach = () => localStorage.getItem('isCoach') === 'true';
+        const authHeaders = () => ({ 'Authorization': 'Bearer ' + getToken() });
+        const jsonHeaders = () => Object.assign(authHeaders(), { 'Content-Type': 'application/json' });
+
+        const showNotification = (message, type = 'success', duration = 4000) => {
+            const n = document.getElementById('notification');
+            if (!n) return;
+            n.textContent = message;
+            n.className = 'notification ' + type + ' show';
+            setTimeout(() => n.classList.remove('show'), duration);
+        };
+
+        const redirectToLogin = () => {
+            window.location.href = 'login.html';
+        };
+
+        async function loadCoachProfile() {
+            try {
+                const res = await fetch(getApiUrl('/api/coaches/me'), {
+                    credentials: 'include',
+                    headers: { 'Authorization': 'Bearer ' + getToken() }
+                });
+                if (!res.ok) {
+                    if (res.status === 401 || res.status === 403) redirectToLogin();
+                    return;
+                }
+                const data = await res.json();
+                if (data.success && data.coach) {
+                    const coach = data.coach;
+
+                    const avatar = document.querySelector('.coach-avatar');
+                    if (avatar) avatar.textContent = (coach.first_name?.[0] + coach.last_name?.[0]).toUpperCase() || '?';
+
+                    const meta = document.querySelector('.coach-meta');
+                    if (meta) {
+                        meta.querySelector('.name').textContent = coach.first_name + ' ' + coach.last_name;
+                        meta.querySelector('.specialty').textContent = coach.specialty || 'General Fitness';
+                    }
+
+                    document.getElementById('coachFirstNameEdit').value = coach.first_name || '';
+                    document.getElementById('coachLastNameEdit').value = coach.last_name || '';
+                    document.getElementById('coachEmailEdit').value = coach.email || '';
+                    document.getElementById('coachPhoneEdit').value = coach.phone || '';
+                    document.getElementById('coachSpecialtyEdit').value = coach.specialty || 'General Fitness';
+
+                    profilePictureData = null;
+                    const picPreview = document.getElementById('profilePicPreview');
+                    const picImg = document.getElementById('profilePicImg');
+                    const picPlaceholder = document.getElementById('profilePicPlaceholder');
+                    if (coach.profile_picture) {
+                        picImg.src = coach.profile_picture;
+                        picImg.style.display = 'block';
+                        picPlaceholder.style.display = 'none';
+                    } else {
+                        picImg.style.display = 'none';
+                        picPlaceholder.style.display = 'block';
+                        picPlaceholder.textContent = (coach.first_name?.[0] + coach.last_name?.[0]).toUpperCase() || '?';
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to load coach profile:', err);
+            }
+        }
+
+        async function loadClients() {
+            try {
+                const res = await fetch(getApiUrl('/api/coaches/clients'), {
+                    credentials: 'include',
+                    headers: { 'Authorization': 'Bearer ' + getToken() }
+                });
+                if (!res.ok) {
+                    if (res.status === 401 || res.status === 403) redirectToLogin();
+                    return;
+                }
+                const clients = await res.json();
+                document.getElementById('clientCount').textContent = clients.length;
+                document.getElementById('activeCount').textContent = clients.filter(c => c.membership_status === 'active').length;
+
+                const tbody = document.getElementById('clientsTableBody');
+                if (clients.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="loading-row"><i class="fas fa-info-circle"></i> No clients assigned yet.</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = clients.map(c => {
+                    const planText = c.assigned_workout_plan_id
+                        ? (c.workout_plan_completed ? 'Completed' : 'In Progress')
+                        : 'No plan assigned';
+                    const initials = ((c.first_name || '').charAt(0) + (c.last_name || '').charAt(0)).toUpperCase() || '?';
+                    const avatar = c.profile_picture
+                        ? '<img class="client-avatar-sm" src="' + c.profile_picture + '" alt="' + (c.first_name || '') + ' ' + (c.last_name || '') + '">'
+                        : '<span class="client-avatar-sm">' + initials + '</span>';
+                    const clientName = (c.first_name || '') + ' ' + (c.last_name || '');
+                    return '<tr>' +
+                        '<td><div class="client-cell" style="gap:10px;cursor:pointer;" onclick="openClientDetail(\'' + c.user_uuid + '\')">' + avatar + '<span class="client-name" style="font-weight:600;">' + (clientName.trim() || '—') + '</span></div></td>' +
+                        '<td>' + (c.email || 'N/A') + '</td>' +
+                        '<td><span class="status-badge status-' + (c.membership_status === 'active' ? 'active' : 'pending') + '">' + (c.membership_status || 'Basic') + '</span></td>' +
+                        '<td>' + planText + '</td>' +
+                        '<td><span class="status-badge status-' + (c.workout_plan_completed ? 'completed' : 'active') + '">' + (c.workout_plan_completed ? 'Completed' : 'Active') + '</span></td>' +
+                        '<td style="text-align: right;">' +
+                        '<button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.75rem; margin-right: 6px;" onclick="openCreatePlanModal(\'' + c.user_uuid + '\')"><i class="fas fa-plus"></i> New Plan</button>' +
+                        '<button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.75rem;" onclick="assignPlanToClient(\'' + c.user_uuid + '\')"><i class="fas fa-dumbbell"></i> Assign Plan</button>' +
+                        '</td></tr>';
+                }).join('');
+            } catch (err) {
+                console.error('Failed to load clients:', err);
+            }
+        }
+
+        async function changePassword() {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const currentPassword = document.getElementById('currentPassword').value;
+
+            if (!currentPassword) {
+                showNotification('Please enter your current password', 'error');
+                return;
+            }
+            if (newPassword !== confirmPassword) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+            if (newPassword.length < 8) {
+                showNotification('Password must be at least 8 characters', 'error');
+                return;
+            }
+
+            try {
+                const res = await fetch(getApiUrl('/api/coaches/change-password'), {
+                    method: 'PUT',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + getToken()
+                    },
+                    body: JSON.stringify({ password: newPassword })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showNotification('Password changed successfully', 'success');
+                    document.getElementById('passwordModal').classList.remove('active');
+                    localStorage.removeItem('forcePasswordChange');
+                } else {
+                    showNotification(data.message || 'Failed to change password', 'error');
+                }
+            } catch (err) {
+                showNotification('Failed to change password', 'error');
+            }
+        }
+
+        let planAssignmentState = { clientId: null, planId: null };
+
+        async function assignPlanToClient(userUuid) {
+            planAssignmentState.clientId = userUuid;
+            planAssignmentState.planId = null;
+
+            const modal = document.getElementById('assignPlanModal');
+            const nameSpan = document.getElementById('assign-plan-client-name');
+            const list = document.getElementById('plan-options-list');
+
+            list.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--text-tertiary);"><i class="fas fa-spinner fa-spin"></i> Loading plans...</div>';
+
+            try {
+                const res = await fetch(getApiUrl('/api/coaches/workout-plans'), {
+                    credentials: 'include',
+                    headers: { 'Authorization': 'Bearer ' + getToken() }
+                });
+                const data = await res.json();
+                let plans = [];
+                if (Array.isArray(data)) {
+                    plans = data;
+                } else if (data && Array.isArray(data.plans)) {
+                    plans = data.plans;
+                }
+
+                const clientRow = (await loadClientsForName(userUuid)) || {};
+                const displayName = clientRow.first_name || clientRow.email || 'this client';
+                if (nameSpan) nameSpan.textContent = `Select a workout plan for ${displayName}.`;
+
+                if (plans.length === 0) {
+                    list.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--text-tertiary);"><i class="fas fa-info-circle"></i> No workout plans available. Create one in the admin panel.</div>';
+                } else {
+                    list.innerHTML = plans.map(p => `
+                        <div class="plan-option ${p.id === planAssignmentState.planId ? 'selected' : ''}" data-plan-id="${p.id}" style="padding: 12px; border-radius: 8px; margin-bottom: 8px; background: rgba(255,255,255,0.05); border: 2px solid transparent; cursor: pointer; transition: all 0.2s;" onclick="selectPlanOption(this, '${p.id}')">
+                            <div style="font-weight: 600; color: var(--text-primary);">${p.plan_name || p.name || p.title || `Plan #${p.id}`}</div>
+                            <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 4px;">${p.description || 'No description'}</div>
+                        </div>
+                    `).join('');
+                }
+            } catch (err) {
+                list.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--text-tertiary);"><i class="fas fa-exclamation-triangle"></i> Unable to load plans.</div>';
+            }
+
+            modal.classList.add('active');
+        }
+
+        function selectPlanOption(el, planId) {
+            planAssignmentState.planId = planId;
+            const options = el.parentElement.querySelectorAll('.plan-option');
+            options.forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        async function loadClientsForName(userUuid) {
+            try {
+                const res = await fetch(getApiUrl('/api/coaches/clients'), {
+                    credentials: 'include',
+                    headers: { 'Authorization': 'Bearer ' + getToken() }
+                });
+                if (!res.ok) return null;
+                const clients = await res.json();
+                if (Array.isArray(clients)) {
+                    return clients.find(c => c.user_uuid === userUuid);
+                }
+                return null;
+            } catch (err) {
+                return null;
+            }
+        }
+
+        async function savePlanAssignment() {
+            if (!planAssignmentState.planId) {
+                showNotification('Please select a workout plan', 'error');
+                return;
+            }
+            const btn = document.getElementById('save-assign-plan-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Assigning...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(getApiUrl('/api/coaches/clients/' + planAssignmentState.clientId + '/assign-workout-plan'), {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + getToken()
+                    },
+                    body: JSON.stringify({ plan_id: planAssignmentState.planId, is_mandatory: false })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showNotification('Workout plan assigned successfully', 'success');
+                    document.getElementById('assignPlanModal').classList.remove('active');
+                    loadClients();
+                } else {
+                    showNotification(data.message || data.error || 'Failed to assign plan', 'error');
+                }
+            } catch (err) {
+                showNotification('Failed to assign plan', 'error');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        async function createClient() {
+            const form = document.getElementById('add-client-form');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const btn = document.getElementById('create-client-btn');
+            const btnText = btn.querySelector('.btn-text');
+            const btnLoading = btn.querySelector('.btn-loading');
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline-flex';
+            btn.disabled = true;
+
+            const passwordInput = document.getElementById('client-password');
+            const generated = passwordInput.value ? passwordInput.value : generateTempPassword();
+
+            try {
+                const res = await fetch(getApiUrl('/api/coaches/clients'), {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + getToken()
+                    },
+                    body: JSON.stringify({
+                        firstName: document.getElementById('client-first-name').value,
+                        lastName: document.getElementById('client-last-name').value,
+                        email: document.getElementById('client-email').value,
+                        phone: document.getElementById('client-phone').value,
+                        password: generated,
+                        send_email: document.getElementById('client-send-email').checked
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    if (!passwordInput.value) {
+                        const display = document.getElementById('generated-password-display');
+                        display.style.display = 'block';
+                        display.innerHTML = `<div style="background: rgba(79,172,254,0.15); border: 1px solid rgba(79,172,254,0.5); border-radius: 8px; padding: 12px; margin-bottom: 16px; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;"><i class="fas fa-eye"></i> Generated password: <strong>${generated}</strong></div>`;
+                    }
+                    showNotification('Client created successfully', 'success');
+                    document.getElementById('addClientModal').classList.remove('active');
+                    form.reset();
+                    passwordInput.value = '';
+                    document.getElementById('generated-password-display').style.display = 'none';
+                    loadClients();
+                } else {
+                    showNotification(data.message || data.error || 'Failed to create client', 'error');
+                }
+            } catch (err) {
+                showNotification('Failed to create client', 'error');
+            } finally {
+                btnText.style.display = 'inline-flex';
+                btnLoading.style.display = 'none';
+                btn.disabled = false;
+            }
+        }
+
+        function generateTempPassword() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let pwd = '';
+            for (let i = 0; i < 10; i++) {
+                pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return pwd;
+        }
+
+        function logout() {
+            localStorage.clear();
+            fetch(getApiUrl('/api/auth/logout'), {
+                method: 'POST',
+                credentials: 'include'
+            }).catch(() => {});
+            window.location.href = 'login.html';
+        }
+
+        // ===== PROFILE MANAGEMENT =====
+        let profilePictureData = null;
+        let exerciseLibrary = [];
+
+        document.getElementById('profilePicUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            if (!file.type.startsWith('image/')) {
+                showNotification('Please select a valid image file', 'error');
+                return;
+            }
+            if (file.size > 2 * 1024 * 1024) {
+                showNotification('Image size should be less than 2MB', 'error');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                profilePictureData = ev.target.result;
+                const picImg = document.getElementById('profilePicImg');
+                const picPlaceholder = document.getElementById('profilePicPlaceholder');
+                picImg.src = profilePictureData;
+                picImg.style.display = 'block';
+                picPlaceholder.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        });
+
+        async function saveCoachProfile() {
+            const token = getToken();
+            const firstName = document.getElementById('coachFirstNameEdit').value.trim();
+            const lastName = document.getElementById('coachLastNameEdit').value.trim();
+            const phone = document.getElementById('coachPhoneEdit').value.trim();
+            const specialty = document.getElementById('coachSpecialtyEdit').value.trim() || 'General Fitness';
+
+            const body = { first_name: firstName, last_name: lastName, phone: phone, specialty: specialty };
+            if (profilePictureData) { body.profile_picture = profilePictureData; }
+
+            const btn = document.getElementById('saveProfileBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(getApiUrl('/api/coaches/me'), {
+                    method: 'PATCH',
+                    credentials: 'include',
+                    headers: jsonHeaders(),
+                    body: JSON.stringify(body)
+                });
+                const data = await res.json();
+                if (res.ok && data.success) {
+                    showNotification('Profile updated successfully', 'success');
+                    profilePictureData = null;
+                    loadCoachProfile();
+                } else {
+                    showNotification(data.message || 'Failed to update profile', 'error');
+                }
+            } catch (err) {
+                showNotification('Failed to update profile', 'error');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // ===== EXERCISE LIBRARY =====
+        async function loadExerciseLibrary() {
+            try {
+                const res = await fetch(getApiUrl('/api/coaches/exercises'), {
+                    credentials: 'include',
+                    headers: { 'Authorization': 'Bearer ' + getToken() }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    exerciseLibrary = Array.isArray(data) ? data : [];
+                }
+            } catch (err) {
+                console.error('Failed to load exercise library:', err);
+            }
+        }
+
+        function renderExerciseSuggestions() {
+            const container = document.getElementById('exerciseSuggestions');
+            if (!exerciseLibrary.length) {
+                container.innerHTML = '<div style="color:var(--text-tertiary);font-size:0.85rem;"><i class="fas fa-info-circle"></i> No exercises available.</div>';
+                return;
+            }
+            container.innerHTML = exerciseLibrary.map(ex =>
+                '<div class="exercise-suggestion" onclick="addExerciseItem(\'' + (ex.name || ex) + '\', ' + (ex.default_sets || 3) + ', \'' + (ex.default_reps || '') + '\')">' +
+                    ex.name + ' (' + (ex.default_sets || 3) + 'x' + (ex.default_reps || '') + ')' +
+                '</div>'
+            ).join('');
+        }
+
+        // ===== WORKOUT PLAN CREATION =====
+        let createPlanClientUuid = null;
+
+        function addExerciseItem(name = '', sets = 3, reps = '') {
+            const container = document.getElementById('exerciseItemsList');
+            const hint = container.querySelector('div[style*="text-align: center"]');
+            if (hint) hint.remove();
+
+            const row = document.createElement('div');
+            row.className = 'exercise-item-row';
+            row.innerHTML =
+                '<div>' +
+                    '<input type="text" class="form-input-sm ex-name-input" placeholder="Exercise name" value="' + (name || '') + '" style="width:100%;">' +
+                '</div>' +
+                '<div>' +
+                    '<input type="number" class="form-input-sm ex-sets-input" placeholder="Sets" value="' + (sets || 3) + '" min="1" max="10" style="text-align:center;">' +
+                '</div>' +
+                '<div>' +
+                    '<input type="text" class="form-input-sm ex-reps-input" placeholder="Reps (e.g. 8-12)" value="' + (reps || '') + '" style="text-align:center;">' +
+                '</div>' +
+                '<div>' +
+                    '<button type="button" class="ex-remove-btn" onclick="removeExerciseItem(this)">' +
+                        '<i class="fas fa-trash"></i>' +
+                    '</button>' +
+                '</div>';
+            container.appendChild(row);
+        }
+
+        function removeExerciseItem(button) {
+            const row = button.closest('.exercise-item-row');
+            if (row) row.remove();
+            const container = document.getElementById('exerciseItemsList');
+            if (container.children.length === 0) {
+                container.innerHTML = '<div style="color: var(--text-tertiary); font-size: 0.85rem; text-align: center; padding: 20px;">' +
+                    '<i class="fas fa-info-circle"></i> No exercises added yet. Click an exercise from the suggestions below or use the Add button.' +
+                    '</div>';
+            }
+        }
+
+        function getExerciseItems() {
+            const container = document.getElementById('exerciseItemsList');
+            const items = [];
+            container.querySelectorAll('.exercise-item-row').forEach(row => {
+                const name = row.querySelector('.ex-name-input').value.trim();
+                const sets = row.querySelector('.ex-sets-input').value.trim();
+                const reps = row.querySelector('.ex-reps-input').value.trim();
+                if (name) {
+                    items.push({
+                        name: name,
+                        sets: sets ? parseInt(sets) || 1 : 1,
+                        reps: reps || ''
+                    });
+                }
+            });
+            return items;
+        }
+
+        function openCreatePlanModal(clientUuid) {
+            createPlanClientUuid = clientUuid || null;
+            document.getElementById('plan-name').value = '';
+            document.getElementById('plan-description').value = '';
+            document.getElementById('plan-difficulty').value = 'intermediate';
+            document.getElementById('plan-mandatory').checked = false;
+            document.getElementById('exerciseItemsList').innerHTML = '<div style="color: var(--text-tertiary); font-size: 0.85rem; text-align: center; padding: 20px;">' +
+                '<i class="fas fa-info-circle"></i> No exercises added yet. Click an exercise from the suggestions below or use the Add button.' +
+                '</div>';
+            renderExerciseSuggestions();
+            document.getElementById('createPlanModal').classList.add('active');
+        }
+
+        function closeCreatePlanModal() {
+            createPlanClientUuid = null;
+            document.getElementById('createPlanModal').classList.remove('active');
+        }
+
+        async function createWorkoutPlan() {
+            const planName = document.getElementById('plan-name').value.trim();
+            const description = document.getElementById('plan-description').value.trim();
+            const difficulty = document.getElementById('plan-difficulty').value;
+            const isMandatory = document.getElementById('plan-mandatory').checked;
+            const exercises = getExerciseItems();
+
+            if (!planName) { showNotification('Please enter a plan name', 'error'); return; }
+            if (exercises.length === 0) { showNotification('Please add at least one exercise', 'error'); return; }
+
+            const btn = document.getElementById('createPlanSubmitBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(getApiUrl('/api/coaches/workout-plans'), {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: jsonHeaders(),
+                    body: JSON.stringify({
+                        plan_name: planName,
+                        description: description,
+                        difficulty: difficulty,
+                        exercises: exercises,
+                        is_mandatory: isMandatory
+                    })
+                });
+                const data = await res.json();
+                if (res.ok && data.success) {
+                    showNotification('Workout plan created successfully', 'success');
+                    closeCreatePlanModal();
+                    loadClients();
+                    if (typeof loadPlansForAssignment === 'function') loadPlansForAssignment();
+
+                    if (createPlanClientUuid) {
+                        const planId = data.plan_id || data.id;
+                        if (planId) {
+                            await fetch(getApiUrl('/api/coaches/clients/' + createPlanClientUuid + '/assign-workout-plan'), {
+                                method: 'POST',
+                                credentials: 'include',
+                                headers: jsonHeaders(),
+                                body: JSON.stringify({ plan_id: planId, is_mandatory: isMandatory })
+                            });
+                        }
+                    }
+                } else {
+                    showNotification(data.message || data.error || 'Failed to create plan', 'error');
+                }
+            } catch (err) {
+                showNotification('Failed to create plan', 'error');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+         }
+
+         // ===== CLIENT DETAIL MODAL =====
+         async function openClientDetail(uuid) {
+             const modal = document.getElementById('clientDetailModal');
+             if (!modal) return;
+
+             modal.classList.add('active');
+
+             document.getElementById('detailClientName').innerHTML = 'Loading...';
+             document.getElementById('detailClientEmail').textContent = '';
+             document.getElementById('detailAvatar').textContent = '?';
+
+             document.getElementById('detailStatWorkouts').textContent = '—';
+             document.getElementById('detailStatCalories').textContent = '—';
+             document.getElementById('detailStatProgress').textContent = '—';
+             document.getElementById('detailStatMeals').textContent = '—';
+             document.getElementById('detailInfoGrid').innerHTML = '<div class="empty-detail">Loading client details...</div>';
+             document.getElementById('weeklyChart').innerHTML = '<div class="empty-detail">Loading...</div>';
+             document.getElementById('detailGoalsList').innerHTML = '<div class="empty-detail">Loading...</div>';
+             document.getElementById('detailWorkoutsList').innerHTML = '<div class="empty-detail">Loading...</div>';
+             document.getElementById('detailNutritionList').innerHTML = '<div class="empty-detail">Loading...</div>';
+             document.getElementById('detailPlanInfo').innerHTML = '<div class="empty-detail">Loading...</div>';
+
+             try {
+                 const res = await fetch(getApiUrl('/api/coaches/clients/' + uuid + '/progress'), {
+                     credentials: 'include',
+                     headers: { 'Authorization': 'Bearer ' + getToken() }
+                 });
+                 if (!res.ok) {
+                     if (res.status === 401 || res.status === 403) redirectToLogin();
+                     showNotification('Failed to load client details', 'error');
+                     return;
+                 }
+                 const data = await res.json();
+                 renderClientDetail(data);
+             } catch (err) {
+                 showNotification('Failed to load client details', 'error');
+             }
+         }
+
+         function closeClientDetailModal() {
+             const modal = document.getElementById('clientDetailModal');
+             if (modal) modal.classList.remove('active');
+         }
+
+         function renderClientDetail(data) {
+             const { user, summary, weeklyActivity, goals, workouts, nutrition, workout_plan } = data;
+
+             const initials = ((user.first_name || '').charAt(0) + (user.last_name || '').charAt(0)).toUpperCase() || '?';
+             const avatarEl = document.getElementById('detailAvatar');
+             if (user.profile_picture) {
+                 avatarEl.innerHTML = '<img src="' + user.profile_picture + '" alt="' + user.first_name + ' ' + user.last_name + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+             } else {
+                 avatarEl.textContent = initials;
+             }
+             document.getElementById('detailClientName').innerHTML = (user.first_name || '') + ' <span class="name-accent">' + (user.last_name || '') + '</span>';
+             document.getElementById('detailClientEmail').textContent = user.email || '';
+
+             document.getElementById('detailStatWorkouts').textContent = summary.total_workouts || 0;
+             document.getElementById('detailStatCalories').textContent = summary.total_calories_burned || 0;
+             document.getElementById('detailStatProgress').textContent = (summary.progress_percentage || 0) + '%';
+             document.getElementById('detailStatMeals').textContent = nutrition.length || 0;
+
+             const infoGrid = document.getElementById('detailInfoGrid');
+             infoGrid.innerHTML =
+                 '<div class="detail-info-item">' +
+                     '<span class="info-label">Email</span>' +
+                     '<span class="info-value">' + (user.email || '—') + '</span>' +
+                 '</div>' +
+                 '<div class="detail-info-item">' +
+                     '<span class="info-label">Phone</span>' +
+                     '<span class="info-value">' + (user.phone || 'Not set') + '</span>' +
+                 '</div>' +
+                 '<div class="detail-info-item">' +
+                     '<span class="info-label">Membership</span>' +
+                     '<span class="info-value">' + (user.membership_status || 'Basic') + '</span>' +
+                 '</div>' +
+                 '<div class="detail-info-item">' +
+                     '<span class="info-label">Join Date</span>' +
+                     '<span class="info-value">' + (user.join_date ? new Date(user.join_date).toLocaleDateString() : '—') + '</span>' +
+                 '</div>';
+
+             const chart = document.getElementById('weeklyChart');
+             const days = weeklyActivity || [];
+             const maxCal = Math.max(...days.map(d => d.calories), 1);
+             const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+             let chartHtml = '';
+             for (let i = 0; i < 7; i++) {
+                 const d = days[i];
+                 const label = d ? d.day : labels[i];
+                 const cal = d ? d.calories : 0;
+                 const height = Math.max(4, (cal / maxCal) * 140);
+                 const barClass = cal > 0 ? '' : ' low';
+                 chartHtml += '<div class="weekly-bar">' +
+                     '<div class="bar' + barClass + '" style="height:' + height + 'px;"></div>' +
+                     '<div class="cal">' + cal + '</div>' +
+                     '<div class="date">' + label + '</div>' +
+                 '</div>';
+             }
+             chart.innerHTML = chartHtml;
+
+             const goalsList = document.getElementById('detailGoalsList');
+             if (goals && goals.length) {
+                 goalsList.innerHTML = goals.map(g =>
+                     '<li><span class="item-name">' + (g.goal_name || 'Goal') + '</span>' +
+                     '<span class="item-meta">' + (g.current_progress || 0) + '/' + (g.target_value || '') + ' · ' +
+                     '<span class="status-badge ' + (g.status === 'completed' ? 'status-completed' : 'status-active') + '">' + (g.status || 'active') + '</span></span></li>'
+                 ).join('');
+             } else {
+                 goalsList.innerHTML = '<div class="empty-detail"><i class="fas fa-info-circle"></i> No goals recorded.</div>';
+             }
+
+             const workoutsList = document.getElementById('detailWorkoutsList');
+             if (workouts && workouts.length) {
+                 workoutsList.innerHTML = workouts.slice(0, 8).map(w =>
+                     '<li><span class="item-name">' + (w.workout_type || 'Workout') + '</span>' +
+                     '<span class="item-meta">' + new Date(w.workout_date).toLocaleDateString() + ' · ' + (w.duration_minutes || 0) + 'm</span>' +
+                     '<span class="item-cal">' + (w.calories_burned || 0) + ' cal</span></li>'
+                 ).join('');
+             } else {
+                 workoutsList.innerHTML = '<div class="empty-detail">No workouts logged.</div>';
+             }
+
+             const nutritionList = document.getElementById('detailNutritionList');
+             if (nutrition && nutrition.length) {
+                 nutritionList.innerHTML = nutrition.slice(0, 8).map(n =>
+                     '<li><span class="item-name">' + (n.meal_type || 'Meal') + ': ' + (n.meal_name || '') + '</span>' +
+                     '<span class="item-meta">' + new Date(n.log_date).toLocaleDateString() + '</span>' +
+                     '<span class="item-cal">' + (n.calories || 0) + ' cal</span></li>'
+                 ).join('');
+             } else {
+                 nutritionList.innerHTML = '<div class="empty-detail">No nutrition logs.</div>';
+             }
+
+             const planInfo = document.getElementById('detailPlanInfo');
+             if (workout_plan && workout_plan.id) {
+                 const diffClass = workout_plan.difficulty === 'advanced' ? 'status-completed' : workout_plan.difficulty === 'beginner' ? 'status-pending' : 'status-active';
+                 planInfo.innerHTML = '<div style="background:rgba(255,255,255,.04);border:1px solid var(--glass-border);border-radius:14px;padding:16px;">' +
+                     '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">' +
+                         '<span style="font-weight:600;color:var(--text-primary);font-size:1.05rem;">' + (workout_plan.plan_name || workout_plan.name || 'Workout Plan') + '</span>' +
+                         (workout_plan.is_mandatory ? '<span class="status-badge status-completed">Mandatory</span>' : '') +
+                         '<span class="status-badge ' + diffClass + '">' + (workout_plan.difficulty || 'Intermediate') + '</span>' +
+                     '</div>' +
+                     '<p style="color:var(--text-secondary);font-size:.82rem;margin:0;">' + (workout_plan.description || 'No description provided.') + '</p>' +
+                 '</div>';
+             } else {
+                 planInfo.innerHTML = '<div class="empty-detail"><i class="fas fa-info-circle"></i> No workout plan has been assigned to this client yet.</div>';
+             }
+         }
+
+         // Event listeners
+        document.getElementById('changePasswordBtn').addEventListener('click', () => {
+            document.getElementById('passwordModal').classList.add('active');
+        });
+
+        document.getElementById('cancelPasswordChange').addEventListener('click', () => {
+            document.getElementById('passwordModal').classList.remove('active');
+        });
+
+        document.getElementById('savePasswordChange').addEventListener('click', changePassword);
+
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+
+        document.getElementById('editProfileBtn').addEventListener('click', () => {
+            document.getElementById('profilePicUpload').value = '';
+            profilePictureData = null;
+            const profileCard = document.querySelector('.profile-card');
+            if (profileCard) {
+                profileCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+
+        document.getElementById('saveProfileBtn').addEventListener('click', saveCoachProfile);
+
+        document.getElementById('createPlanBtn').addEventListener('click', () => {
+            openCreatePlanModal(null);
+        });
+
+        document.getElementById('addClientBtn').addEventListener('click', () => {
+            document.getElementById('addClientModal').classList.add('active');
+        });
+
+        document.getElementById('cancelAddClient').addEventListener('click', () => {
+            document.getElementById('addClientModal').classList.remove('active');
+        });
+
+        document.getElementById('add-client-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            createClient();
+        });
+
+        document.getElementById('cancelAssignPlan').addEventListener('click', () => {
+            document.getElementById('assignPlanModal').classList.remove('active');
+        });
+
+        document.getElementById('save-assign-plan-btn').addEventListener('click', savePlanAssignment);
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const detailModal = document.getElementById('clientDetailModal');
+                if (detailModal && detailModal.classList.contains('active')) {
+                    detailModal.classList.remove('active');
+                }
+            }
+        });
+
+         // Check if force password change
+        if (localStorage.getItem('forcePasswordChange') === 'true') {
+            setTimeout(() => {
+                document.getElementById('passwordModal').classList.add('active');
+            }, 500);
+        }
+
+        // Init on page load
+        const token = getToken();
+        if (!token || !isCoach()) {
+            redirectToLogin();
+        } else {
+            loadCoachProfile();
+            loadClients();
+            loadExerciseLibrary();
+        }
+    </script>
+</body>
+</html>

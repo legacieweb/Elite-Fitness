@@ -1,4 +1,4 @@
-// Hamburger menu toggle
+﻿// Hamburger menu toggle
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
 
@@ -57,7 +57,7 @@ document.querySelector('.cta-btn').addEventListener('click', function() {
         this.style.transform = 'scale(1)';
     }, 150);
     // Could redirect or show modal
-    alert('Welcome to Elite Fitness! Let\'s start your journey.');
+    alert('Welcome to HitRepublic! Let\'s start your journey.');
 });
 
 // Animate sections on scroll
@@ -102,3 +102,4 @@ document.querySelectorAll('.service-card').forEach(card => {
         this.querySelector('img').style.transform = 'scale(1)';
     });
 });
+
