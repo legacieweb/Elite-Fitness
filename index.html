@@ -167,6 +167,13 @@
             align-items: center;
         }
 
+        .nav-auth-desktop {
+            margin-left: auto;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
         .nav-menu li a {
             color: var(--text-secondary);
             text-decoration: none;
@@ -1024,6 +1031,12 @@
                 display: flex !important;
             }
 
+            .nav-auth-desktop {
+                margin-left: 0;
+                width: 100%;
+                justify-content: center;
+            }
+
             .hero-content h1 {
                 font-size: 2.8rem;
             }
@@ -1126,15 +1139,15 @@
                     <li><a href="pages/group-classes.html"><i class="fas fa-users"></i> Classes</a></li>
                     <li><a href="#shilogym"><i class="fas fa-heart"></i> Coaches</a></li>
                     <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li class="nav-auth-desktop" id="nav-auth-desktop">
+                        <a href="login.html" class="btn-auth btn-login">Login</a>
+                        <a href="register.html" class="btn-auth btn-register">Sign Up</a>
+                    </li>
+                    <li class="nav-auth-desktop logged-in-view" id="nav-auth-logged">
+                        <a href="#" class="btn-auth" id="dashboard-link">Dashboard</a>
+                        <a href="#" class="btn-auth btn-logout" onclick="logoutUser()">Logout</a>
+                    </li>
                 </ul>
-                <div class="auth-buttons" id="auth-buttons">
-                    <a href="login.html" class="btn-auth btn-login">Login</a>
-                    <a href="register.html" class="btn-auth btn-register">Sign Up</a>
-                </div>
-                <div class="auth-buttons logged-in-view" id="auth-buttons-logged">
-                    <a href="#" class="btn-auth" id="dashboard-link">Dashboard</a>
-                    <a href="#" class="btn-auth btn-logout" onclick="logoutUser()">Logout</a>
-                </div>
                 <div class="hamburger" id="hamburger">
                     <span></span>
                     <span></span>
@@ -1445,8 +1458,8 @@
         }
 
         function showLoggedInNav(user) {
-            document.getElementById('auth-buttons').style.display = 'none';
-            const loggedView = document.getElementById('auth-buttons-logged');
+            document.getElementById('nav-auth-desktop').style.display = 'none';
+            const loggedView = document.getElementById('nav-auth-logged');
             if (loggedView) {
                 loggedView.classList.add('show');
                 document.getElementById('dashboard-link').href = getDashboardUrl();
