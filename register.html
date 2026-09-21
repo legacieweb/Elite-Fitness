@@ -530,10 +530,7 @@
 
     <script>
         const getApiUrl = (path) => {
-            const origin = location.origin || '';
-            const isLocal = origin.includes('localhost') || location.protocol === 'file:';
-            const base = isLocal ? 'http://localhost:3000' : '';
-            return base + path;
+            return 'https://elite-fitness-6av3.onrender.com' + path;
         };
 
         const showToast = (message, type = 'info') => {
@@ -577,9 +574,9 @@
                     })
                 });
                 
-                const data = await response.json();
+                const data = !response.ok ? null : await response.json().catch(() => null);
                 
-                if (data.success) {
+                if (data && data.success) {
                     showToast('Account created successfully! Please login.', 'success');
                     setTimeout(() => window.location.href = 'login.html', 1500);
                 } else {
