@@ -231,9 +231,28 @@
             gap: 10px;
         }
 
-        .btn-auth-submit:hover {
+        .btn-auth-submit:hover:not(:disabled) {
             transform: translateY(-3px);
             box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-auth-submit:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .btn-auth-submit .btn-loading {
+            display: none;
+        }
+
+        .btn-auth-submit:disabled .btn-text {
+            display: none;
+        }
+
+        .btn-auth-submit:disabled .btn-loading {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .auth-footer {
@@ -445,8 +464,9 @@
                 </div>
             </div>
 
-                    <button type="submit" class="btn-auth-submit">
-                        <i class="fas fa-user-plus"></i> Create Account
+                    <button type="submit" class="btn-auth-submit" id="signup-btn">
+                        <span class="btn-text">Create Account</span>
+                        <span class="btn-loading"><i class="fas fa-spinner fa-pulse"></i> Creating...</span>
                     </button>
                 </form>
 
@@ -466,11 +486,14 @@
             e.preventDefault();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
+            const signupBtn = document.getElementById('signup-btn');
             
             if (password !== confirmPassword) {
                 alert('Passwords do not match');
                 return;
             }
+            
+            signupBtn.disabled = true;
             
             try {
                 const response = await fetch(getApiUrl('/api/auth/register'), {
@@ -498,6 +521,8 @@
             } catch (error) {
                 console.error('Registration error:', error);
                 alert('Registration failed - check your connection');
+            } finally {
+                signupBtn.disabled = false;
             }
          });
 

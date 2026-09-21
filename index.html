@@ -207,92 +207,36 @@
             justify-content: center;
         }
 
-        .btn-dashboard {
+        .btn-login {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-login:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .btn-register {
             background: var(--primary-gradient);
             color: white;
             border: none;
         }
 
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            position: relative;
+        .btn-register:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
 
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .user-avatar-initial {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: white;
-            background: var(--primary-gradient);
-        }
-
-        .user-name {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            white-space: nowrap;
-        }
-
-        .user-dropdown {
-            position: absolute;
-            top: 120%;
-            right: 0;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius);
-            padding: 10px;
-            min-width: 150px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            z-index: 1001;
-        }
-
-        .user-menu:hover .user-dropdown {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-secondary);
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.2s ease;
+            border: 1px solid var(--glass-border);
         }
 
-        .dropdown-item:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.15);
             color: var(--text-primary);
         }
 
@@ -342,6 +286,14 @@
             background: var(--text-primary);
             border-radius: 3px;
             transition: var(--transition);
+        }
+
+        .logged-in-view {
+            display: none;
+        }
+
+        .logged-in-view.show {
+            display: flex;
         }
 
         .hero {
@@ -1068,18 +1020,8 @@
                 display: none;
             }
 
-             .auth-links-mobile {
-                display: flex;
-            }
-
-            .hidden-mobile {
-                display: none !important;
-            }
-
-            @media (max-width: 768px) {
-                .hidden-mobile {
-                    display: flex !important;
-                }
+            .logged-in-view {
+                display: flex !important;
             }
 
             .hero-content h1 {
@@ -1184,31 +1126,14 @@
                     <li><a href="pages/group-classes.html"><i class="fas fa-users"></i> Classes</a></li>
                     <li><a href="#shilogym"><i class="fas fa-heart"></i> Coaches</a></li>
                     <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li class="auth-links-mobile logged-out-mobile" id="auth-links-mobile">
-                        <a href="login.html" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
-                        <a href="register.html" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> Join Now</a>
-                    </li>
-                    <li class="auth-links-mobile logged-in-mobile hidden-mobile" id="auth-links-mobile-logged">
-                        <a href="#" class="btn-auth btn-dashboard" id="dashboard-link-mobile"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                        <a href="#" onclick="logoutUser()" class="btn-auth btn-login" style="margin-top: 10px;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    </li>
                 </ul>
                 <div class="auth-buttons" id="auth-buttons">
-                    <a href="login.html" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
-                    <a href="register.html" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> Join Now</a>
+                    <a href="login.html" class="btn-auth btn-login">Login</a>
+                    <a href="register.html" class="btn-auth btn-register">Sign Up</a>
                 </div>
-                <div class="auth-buttons logged-in-view" id="auth-buttons-logged" style="display: none;">
-                    <a href="#" class="btn-auth btn-dashboard" id="dashboard-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                    <div class="user-menu" id="user-menu">
-                        <div class="user-avatar" id="user-avatar">
-                            <img src="" alt="Profile" id="user-avatar-img" style="display: none;">
-                            <div class="user-avatar-initial" id="user-initial"></div>
-                        </div>
-                        <span class="user-name" id="user-name-header"></span>
-                        <div class="user-dropdown">
-                            <a href="#" onclick="logoutUser()" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                        </div>
-                    </div>
+                <div class="auth-buttons logged-in-view" id="auth-buttons-logged">
+                    <a href="#" class="btn-auth" id="dashboard-link">Dashboard</a>
+                    <a href="#" class="btn-auth btn-logout" onclick="logoutUser()">Logout</a>
                 </div>
                 <div class="hamburger" id="hamburger">
                     <span></span>
@@ -1225,8 +1150,8 @@
             <h1>Transform Your Fitness with Expert Coaches at ShiLo Gym</h1>
             <p>Premium fitness training, expert nutrition coaching, and high-energy group classes — all guided by certified coaches at ShiLo Gym who build programs tailored to your unique goals</p>
             <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <button class="cta-btn" onclick="location.href='register.html'"><i class="fas fa-rocket"></i> Start Your Journey</button>
-                <button class="cta-btn" onclick="location.href='#trainers'" style="background: rgba(255, 255, 255, 0.1); color: var(--text-primary); border: 1px solid var(--glass-border);"><i class="fas fa-star"></i> Meet Our Coaches</button>
+                <button class="cta-btn" onclick="location.href='register.html'">Start Your Journey</button>
+                <button class="cta-btn" onclick="location.href='#trainers'" style="background: rgba(255, 255, 255, 0.1); color: var(--text-primary); border: 1px solid var(--glass-border);">Meet Our Coaches</button>
             </div>
             <div class="stats-grid-hero">
                 <div class="stat-item-hero fade-in">
@@ -1327,7 +1252,7 @@
                 </div>
             </div>
             <div style="text-align: center; margin-top: 50px;">
-                <button class="cta-btn" onclick="location.href='register.html'"><i class="fas fa-arrow-right"></i> Get Started Today</button>
+                <button class="cta-btn" onclick="location.href='register.html'">Get Started Today</button>
             </div>
         </div>
     </section>
@@ -1346,7 +1271,7 @@
                         <div class="shilogym-highlight-item"><i class="fas fa-award"></i> Certified Expert Coaches</div>
                     </div>
                     <div style="margin-top: 40px;">
-                        <button class="cta-btn" onclick="location.href='register.html'"><i class="fas fa-rocket"></i> Get Matched with a Coach</button>
+                        <button class="cta-btn" onclick="location.href='register.html'">Get Matched with a Coach</button>
                     </div>
                 </div>
                 <div class="shilogym-image">
@@ -1522,33 +1447,16 @@
         function showLoggedInNav(user) {
             document.getElementById('auth-buttons').style.display = 'none';
             const loggedView = document.getElementById('auth-buttons-logged');
-            if (loggedView) loggedView.style.display = 'flex';
-
-            const initial = document.getElementById('user-initial');
-            const avatarImg = document.getElementById('user-avatar-img');
-            const nameEl = document.getElementById('user-name-header');
-
-            const displayName = user.first_name || user.email || 'User';
-            if (nameEl) nameEl.textContent = displayName;
-
-            if (initial) {
-                initial.textContent = displayName.charAt(0).toUpperCase();
-                initial.style.display = 'flex';
+            if (loggedView) {
+                loggedView.classList.add('show');
+                document.getElementById('dashboard-link').href = getDashboardUrl();
             }
-            if (avatarImg) avatarImg.style.display = 'none';
+        }
 
+        function getDashboardUrl() {
             const isCoach = localStorage.getItem('isCoach') === 'true';
             const isAdmin = localStorage.getItem('isAdmin') === 'true';
-            const dashboardLink = document.getElementById('dashboard-link');
-            const dashboardLinkMobile = document.getElementById('dashboard-link-mobile');
-            const dashboardHref = isCoach ? 'coach-dashboard.html' : isAdmin ? 'admin.html' : 'user-dashboard.html';
-            if (dashboardLink) dashboardLink.href = dashboardHref;
-            if (dashboardLinkMobile) dashboardLinkMobile.href = dashboardHref;
-
-            const mobileNav = document.getElementById('auth-links-mobile');
-            if (mobileNav) mobileNav.classList.add('hidden-mobile');
-            const mobileNavLogged = document.getElementById('auth-links-mobile-logged');
-            if (mobileNavLogged) mobileNavLogged.classList.remove('hidden-mobile');
+            return isCoach ? 'coach-dashboard.html' : isAdmin ? 'admin.html' : 'user-dashboard.html';
         }
 
         async function logoutUser() {
