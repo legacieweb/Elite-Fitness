@@ -296,11 +296,11 @@
         }
 
         .logged-in-view {
-            display: none;
+            display: none !important;
         }
 
         .logged-in-view.show {
-            display: flex;
+            display: flex !important;
         }
 
         .hero {
@@ -1027,7 +1027,7 @@
                 display: none;
             }
 
-            .logged-in-view {
+            .logged-in-view.show {
                 display: flex !important;
             }
 
@@ -1393,8 +1393,10 @@
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const target = document.querySelector(href);
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
@@ -1429,12 +1431,18 @@
          });
 
         const getApiUrl = (path) => {
-            return 'https://elite-fitness-6av3.onrender.com' + path;
+            const origin = location.origin || '';
+            const isLocal = origin.includes('localhost') || location.protocol === 'file:';
+            const base = isLocal ? 'http://localhost:3000' : '';
+            return base + path;
         };
 
         async function checkAuthState() {
             const token = localStorage.getItem('authToken');
-            if (!token) return;
+            if (!token) {
+                hideLoggedInNav();
+                return;
+            }
 
             try {
                 const res = await fetch(getApiUrl('/api/auth/me'), {
@@ -1451,9 +1459,23 @@
                     localStorage.removeItem('isCoach');
                     localStorage.removeItem('isAdmin');
                     localStorage.removeItem('forcePasswordChange');
+                    hideLoggedInNav();
                 }
             } catch (err) {
                 console.error('Auth check error:', err);
+                hideLoggedInNav();
+            }
+        }
+
+        function hideLoggedInNav() {
+            const loggedView = document.getElementById('nav-auth-logged');
+            if (loggedView) {
+                loggedView.classList.remove('show');
+                loggedView.style.display = 'none';
+            }
+            const loggedOutView = document.getElementById('nav-auth-desktop');
+            if (loggedOutView) {
+                loggedOutView.style.display = 'flex';
             }
         }
 
