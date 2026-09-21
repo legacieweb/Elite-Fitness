@@ -1450,6 +1450,16 @@
                     credentials: 'include',
                     headers: { 'Authorization': 'Bearer ' + token }
                 });
+
+                if (!res.ok) {
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('isCoach');
+                    localStorage.removeItem('isAdmin');
+                    localStorage.removeItem('forcePasswordChange');
+                    hideLoggedInNav();
+                    return;
+                }
+
                 const data = await res.json();
 
                 if (data.success && data.user) {

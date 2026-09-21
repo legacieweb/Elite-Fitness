@@ -528,6 +528,100 @@
         .notification.error { border-color: rgba(244,67,54,.4); }
         .notification.info { border-color: rgba(102,126,234,.3); }
 
+        /* ===== CONFIRMATION POPUP ===== */
+        .confirm-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9997;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .confirm-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .confirm-dialog {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 32px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 40px 60px rgba(0, 0, 0, 0.5);
+            animation: dialogPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes dialogPop {
+            from { opacity: 0; transform: scale(0.8) translateY(-20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .confirm-dialog i {
+            font-size: 3rem;
+            color: #f87171;
+            margin-bottom: 16px;
+        }
+
+        .confirm-dialog h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .confirm-dialog p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .confirm-btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .confirm-btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            flex: 1;
+        }
+
+        .confirm-btn-cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .confirm-btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .confirm-btn-confirm {
+            background: linear-gradient(135deg, #f87171 0%, #f14646 100%);
+            color: white;
+        }
+
+        .confirm-btn-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(248, 113, 113, 0.4);
+        }
+
         .loading-row td { text-align: center; padding: 40px; color: var(--text-tertiary); }
 
         @media (max-width: 760px) {
@@ -767,6 +861,18 @@
 
     <div class="notification" id="notification"></div>
 
+    <div class="confirm-overlay" id="confirm-overlay">
+        <div class="confirm-dialog">
+            <i class="fas fa-question-circle"></i>
+            <h3 id="confirm-title">Confirm Action</h3>
+            <p id="confirm-message">Are you sure you want to proceed?</p>
+            <div class="confirm-btn-group">
+                <button class="confirm-btn confirm-btn-cancel" id="confirm-cancel-btn">Cancel</button>
+                <button class="confirm-btn confirm-btn-confirm" id="confirm-confirm-btn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         window.DashboardApp = (function () {
             // ---- Config / helpers ----
@@ -803,6 +909,36 @@
                 n.className = 'notification ' + type + ' show';
                 setTimeout(() => n.classList.remove('show'), duration);
             };
+
+            let _confirmResolver = null;
+            const showConfirmation = (title, message) => {
+                return new Promise((resolve) => {
+                    _confirmResolver = resolve;
+                    const overlay = document.getElementById('confirm-overlay');
+                    document.getElementById('confirm-title').textContent = title;
+                    document.getElementById('confirm-message').textContent = message;
+                    overlay.classList.add('show');
+                });
+            };
+
+            const closeConfirmation = (result) => {
+                const overlay = document.getElementById('confirm-overlay');
+                overlay.classList.remove('show');
+                if (_confirmResolver) {
+                    _confirmResolver(result);
+                    _confirmResolver = null;
+                }
+                setTimeout(() => {
+                    document.getElementById('confirm-cancel-btn').onclick = null;
+                    document.getElementById('confirm-confirm-btn').onclick = null;
+                }, 100);
+            };
+
+            document.getElementById('confirm-cancel-btn').addEventListener('click', () => closeConfirmation(false));
+            document.getElementById('confirm-confirm-btn').addEventListener('click', () => closeConfirmation(true));
+            document.getElementById('confirm-overlay').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('confirm-overlay')) closeConfirmation(false);
+            });
 
             const showAuth = () => { document.getElementById('authOverlay').style.display = 'flex'; document.getElementById('adminApp').style.opacity = '0'; };
             const showApp = (email) => {
@@ -1469,7 +1605,9 @@
             };
             const deletePlan = async (planId) => {
                 const plan = state.plans.find(p => String(p.id) === String(planId));
-                if (!confirm('Delete "' + (plan ? (plan.plan_name || plan.name || 'this plan') : 'this plan') + '"? This cannot be undone.')) return;
+                const planName = plan ? (plan.plan_name || plan.name || 'this plan') : 'this plan';
+                const confirmed = await showConfirmation('Delete "' + planName + '"?', 'This action cannot be undone.');
+                if (!confirmed) return;
                 try {
                     const res = await fetch(getApiUrl('/api/admin/workout-plans/' + planId), { method: 'DELETE', credentials: 'include', headers: authHeaders() });
                     const data = await res.json();

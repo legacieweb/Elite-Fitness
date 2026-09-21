@@ -372,9 +372,60 @@
             background: rgba(255, 255, 255, 0.1);
             transform: translateY(-2px);
         }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .toast {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-left: 4px solid #4ade80;
+        }
+
+        .toast.error {
+            border-left: 4px solid #f87171;
+        }
+
+        .toast.info {
+            border-left: 4px solid #667eea;
+        }
+
+        .toast i {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
+    <div class="toast-container" id="toast-container"></div>
     <a href="index.html" class="back-to-home">
         <i class="fas fa-arrow-left"></i> Back to Home
     </a>
@@ -479,7 +530,23 @@
 
     <script>
         const getApiUrl = (path) => {
-            return 'https://elite-fitness-6av3.onrender.com' + path;
+            const origin = location.origin || '';
+            const isLocal = origin.includes('localhost') || location.protocol === 'file:';
+            const base = isLocal ? 'http://localhost:3000' : '';
+            return base + path;
+        };
+
+        const showToast = (message, type = 'info') => {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            toast.innerHTML = '<i class="fas fa-' + (type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle') + '"></i><span>' + message + '</span>';
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => container.removeChild(toast), 400);
+            }, 3500);
         };
 
         document.getElementById('register-form').addEventListener('submit', async function(e) {
@@ -489,7 +556,7 @@
             const signupBtn = document.getElementById('signup-btn');
             
             if (password !== confirmPassword) {
-                alert('Passwords do not match');
+                showToast('Passwords do not match', 'error');
                 return;
             }
             
@@ -513,14 +580,14 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    alert('Account created successfully! Please login.');
-                    window.location.href = 'login.html';
+                    showToast('Account created successfully! Please login.', 'success');
+                    setTimeout(() => window.location.href = 'login.html', 1500);
                 } else {
-                    alert(data.message || 'Registration failed');
+                    showToast(data.message || 'Registration failed', 'error');
                 }
             } catch (error) {
                 console.error('Registration error:', error);
-                alert('Registration failed - check your connection');
+                showToast('Registration failed - check your connection', 'error');
             } finally {
                 signupBtn.disabled = false;
             }
@@ -566,11 +633,11 @@
             const file = e.target.files[0];
             if (!file) return;
             if (!file.type.startsWith('image/')) {
-                alert('Please select a valid image file');
+                showToast('Please select a valid image file', 'error');
                 return;
             }
             if (file.size > 2 * 1024 * 1024) {
-                alert('Image size should be less than 2MB');
+                showToast('Image size should be less than 2MB', 'error');
                 return;
             }
             const reader = new FileReader();
